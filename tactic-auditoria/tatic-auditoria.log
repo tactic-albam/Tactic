@@ -1,0 +1,48 @@
+2016-11-13 13:16:24.277  INFO 7528 --- [main] c.t.AuditoriaApplicationTests            : Starting AuditoriaApplicationTests on L-TI-03 with PID 7528 (started by steven in C:\Workspace\Java\java-sts\tactic-auditoria)
+2016-11-13 13:16:24.279  INFO 7528 --- [main] c.t.AuditoriaApplicationTests            : No active profile set, falling back to default profiles: default
+2016-11-13 13:16:24.344  INFO 7528 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@431cd9b2: startup date [Sun Nov 13 13:16:24 COT 2016]; root of context hierarchy
+2016-11-13 13:16:26.205  INFO 7528 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$e4b7fef] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-11-13 13:16:28.025  INFO 7528 --- [main] j.LocalContainerEntityManagerFactoryBean : Building JPA container EntityManagerFactory for persistence unit 'default'
+2016-11-13 13:16:28.056  INFO 7528 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2016-11-13 13:16:28.171  INFO 7528 --- [main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.0.11.Final}
+2016-11-13 13:16:28.175  INFO 7528 --- [main] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2016-11-13 13:16:28.187  INFO 7528 --- [main] org.hibernate.cfg.Environment            : HHH000021: Bytecode provider name : javassist
+2016-11-13 13:16:28.247  INFO 7528 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2016-11-13 13:16:28.517  INFO 7528 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+2016-11-13 13:16:29.099  INFO 7528 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2016-11-13 13:16:29.852  INFO 7528 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.web.context.support.GenericWebApplicationContext@431cd9b2: startup date [Sun Nov 13 13:16:24 COT 2016]; root of context hierarchy
+2016-11-13 13:16:29.977  INFO 7528 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2016-11-13 13:16:29.982  INFO 7528 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-11-13 13:16:30.036  INFO 7528 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-11-13 13:16:30.043  INFO 7528 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-11-13 13:16:30.101  INFO 7528 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-11-13 13:16:30.443  INFO 7528 --- [main] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2016-11-13 13:16:30.459  INFO 7528 --- [main] c.t.AuditoriaApplicationTests            : Started AuditoriaApplicationTests in 6.688 seconds (JVM running for 7.481)
+2016-11-13 13:16:30.505  INFO 7528 --- [Thread-2] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@431cd9b2: startup date [Sun Nov 13 13:16:24 COT 2016]; root of context hierarchy
+2016-11-13 13:16:30.508  INFO 7528 --- [Thread-2] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2016-11-13 13:19:34.270  INFO 7564 --- [main] c.t.AuditoriaApplicationTests            : Starting AuditoriaApplicationTests on L-TI-03 with PID 7564 (started by steven in C:\Workspace\Java\java-sts\tactic-auditoria)
+2016-11-13 13:19:34.272  INFO 7564 --- [main] c.t.AuditoriaApplicationTests            : No active profile set, falling back to default profiles: default
+2016-11-13 13:19:34.327  INFO 7564 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@431cd9b2: startup date [Sun Nov 13 13:19:34 COT 2016]; root of context hierarchy
+2016-11-13 13:19:36.240  INFO 7564 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$e4b7fef] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-11-13 13:19:38.011  INFO 7564 --- [main] j.LocalContainerEntityManagerFactoryBean : Building JPA container EntityManagerFactory for persistence unit 'default'
+2016-11-13 13:19:38.047  INFO 7564 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2016-11-13 13:19:38.141  INFO 7564 --- [main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.0.11.Final}
+2016-11-13 13:19:38.143  INFO 7564 --- [main] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2016-11-13 13:19:38.149  INFO 7564 --- [main] org.hibernate.cfg.Environment            : HHH000021: Bytecode provider name : javassist
+2016-11-13 13:19:38.195  INFO 7564 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2016-11-13 13:19:38.457  INFO 7564 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+2016-11-13 13:19:39.047  INFO 7564 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2016-11-13 13:19:39.769  INFO 7564 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.web.context.support.GenericWebApplicationContext@431cd9b2: startup date [Sun Nov 13 13:19:34 COT 2016]; root of context hierarchy
+2016-11-13 13:19:39.882  INFO 7564 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2016-11-13 13:19:39.890  INFO 7564 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-11-13 13:19:39.940  INFO 7564 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-11-13 13:19:39.946  INFO 7564 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-11-13 13:19:39.989  INFO 7564 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-11-13 13:19:40.257  INFO 7564 --- [main] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2016-11-13 13:19:40.269  INFO 7564 --- [main] c.t.AuditoriaApplicationTests            : Started AuditoriaApplicationTests in 6.547 seconds (JVM running for 7.288)
+2016-11-13 13:19:40.321  INFO 7564 --- [Thread-2] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@431cd9b2: startup date [Sun Nov 13 13:19:34 COT 2016]; root of context hierarchy
+2016-11-13 13:19:40.323  INFO 7564 --- [Thread-2] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
