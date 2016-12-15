@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class NotificacionService {
 	private static final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-	@Value("${spring.mail.username}")
+	@Value("${dicermex.mail.from}")
 	private String mailFrom;
 
 	@Value("${dicermex.mail.from.personal}")

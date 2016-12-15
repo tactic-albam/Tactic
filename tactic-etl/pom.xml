@@ -3,11 +3,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>tactic-etl</artifactId>
+	<artifactId>tactic-integrador-etl</artifactId>
 	<packaging>war</packaging>
 
-	<name>tactic-etl</name>
-	<description>Demo project for Spring Boot</description>
+	<name>tactic-integrador-etl</name>
+	<description>Componente de integración de archivos dispuestos en un servidor local de archivos</description>
 
 	<parent>
 		<groupId>com.tacticlogistics</groupId>

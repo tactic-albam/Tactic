@@ -11,9 +11,9 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<modules>
-		<module>../tactic-auditoria</module>
-		<module>../tactic-etl</module>
-		<module>../tactic-ftp</module>
+		<module>../tactic-integrador-dbstage</module>
+		<module>../tactic-integrador-etl</module>
+		<module>../tactic-integrador-ftp</module>
 	</modules>
 
 	<properties>
@@ -23,5 +23,10 @@
 	</properties>
 
 	<dependencies>
+	<dependency>
+		<groupId>com.tacticlogistics</groupId>
+		<artifactId>tactic-commons</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
 	</dependencies>
 </project>
