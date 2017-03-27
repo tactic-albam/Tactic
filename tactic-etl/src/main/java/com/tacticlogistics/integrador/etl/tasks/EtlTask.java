@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.tacticlogistics.integrador.etl.model.GrupoIntegracion;
-import com.tacticlogistics.integrador.etl.model.GrupoIntegracionRepository;
 import com.tacticlogistics.integrador.etl.services.EtlService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -25,17 +23,9 @@ public class EtlTask {
 	@Autowired
 	private EtlService service;
 	
-	@Autowired
-	private GrupoIntegracionRepository repository;
 
 	@Scheduled(cron = "${tasks.etl-task.cron}")
 	public void cron() {
-		List<GrupoIntegracion> lista = repository.findAll();
-		
-		for (GrupoIntegracion grupoIntegracion : lista) {
-			System.out.println(grupoIntegracion.toString());
-		}
-		
 		log.debug("Inicio cron");
 
 		List<Path> paths = getDirectorios();

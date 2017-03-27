@@ -27,6 +27,7 @@ public class AuditoriaTask {
 	NotificacionService notificacionService;
 
 	@Scheduled(cron = "0 0 18 * * ?")
+	//@Scheduled(cron = "0 */1 * * * ?")
 	public void cron() {
 		try {
 			log.info("cron {}",LocalDateTime.now());

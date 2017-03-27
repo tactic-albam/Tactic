@@ -8,4 +8,10 @@
   </parent>
   <artifactId>tactic-commons</artifactId>
   <name>tactic-commons</name>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.projectlombok</groupId>
+  		<artifactId>lombok</artifactId>
+  	</dependency>
+  </dependencies>
 </project>

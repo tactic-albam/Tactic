@@ -1,21 +1,31 @@
 package com.tacticlogistics.integrador.etl.dto;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
-import com.tacticlogistics.integrador.etl.dto.RegistroDTO.Status;
+import com.tacticlogistics.integrador.etl.model.Archivo;
+import com.tacticlogistics.integrador.etl.model.TipoArchivo;
 
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
+import lombok.NonNull;
 
-@Getter
 @Builder
+@Data
 public class ArchivoDTO<T> {
+	@NonNull
+	private Path pathArchivo;
+	@NonNull
+	private TipoArchivo tipoArchivo;
+	@NonNull
+	private Archivo archivo;
 
-	private Path path;
-	private List<RegistroDTO<T>> data;
-	
-	public boolean hasError() {
-		return data.stream().anyMatch(a -> a.getEstado().equals(Status.ERROR));
+	private String datos;
+
+	private List<RegistroDTO<T>> registros;
+
+	public static class ArchivoDTOBuilder<T> {
+		private List<RegistroDTO<T>> registros = new ArrayList<>();
 	}
 }

@@ -5,12 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.tacticlogistics.integrador.ftp.services.CheckDirectoriosService;
 import com.tacticlogistics.integrador.ftp.services.Destino;
 import com.tacticlogistics.integrador.ftp.services.FtpService;
 
@@ -20,14 +18,14 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Getter
 @Slf4j
-public class FtpTask {
+public class FtpPullTask {
 	@Value("${directorios.locales}")
 	private String[] directoriosLocales;
 
 	@Autowired
 	private List<FtpService> ftpServices;
 
-	@Scheduled(cron = "0 */1 * * * ?")
+	@Scheduled(cron = "0 */3 * * * ?")
 	public void cronFtpPull() {
 		log.info("Inicio cronFtpPull");
 
@@ -36,7 +34,10 @@ public class FtpTask {
 		for (FtpService service : services) {
 			try {
 				log.info("Realizando operación GET desde {}", service.getNombre());
-				service.pull(destinos);
+				destinos.forEach( a -> {
+					log.info("Directorio {}", a.toString());
+				});
+				//service.pull(destinos);
 			} catch (RuntimeException e) {
 				String error = "cronFtpPull: Ocurrio una excepción al procesar el servicio FTP " + service.getNombre();
 				log.error(error, e);
@@ -49,36 +50,7 @@ public class FtpTask {
 		List<Destino> destinos = new ArrayList<>();
 		for (String directorio : directoriosLocales) {
 			destinos.add(new Destino(Paths.get(directorio)));
-
 		}
 		return destinos;
-	}
-
-	@Autowired
-	@Qualifier("remote")
-	private CheckDirectoriosService checkDirectoriosRemotosService;
-
-	@Autowired
-	@Qualifier("local")
-	private CheckDirectoriosService checkDirectoriosLocalesService;
-
-	@Scheduled(cron = "0 */10 * * * ?")
-	public void cronCheckDirectorios() {
-		try {
-			log.info("Inicio cronCheckDirectorios");
-			try {
-				checkDirectoriosRemotosService.check();
-			} catch (RuntimeException e) {
-				log.error("cronCheckDirectorios: Ocurrio la siguiente excepción: ", e);
-			}
-
-			try {
-				checkDirectoriosLocalesService.check();
-			} catch (RuntimeException e) {
-				log.error("cronCheckDirectorios: Ocurrio la siguiente excepción: ", e);
-			}
-		} finally {
-			log.info("Fin cronCheckDirectorios");
-		}
 	}
 }

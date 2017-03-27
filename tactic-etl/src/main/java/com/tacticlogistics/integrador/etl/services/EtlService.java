@@ -24,9 +24,9 @@ public class EtlService {
 	private String subDirectorioDeEntradas;
 
 	@Autowired
-	List<ArchivoHandler> handlers;
+	List<ArchivoHandler<?, ?>> handlers;
 
-	private ArchivoHandler rootChain = null;
+	private ArchivoHandler<?, ?> rootChain = null;
 
 	public void run(Path root) {
 		try (DirectoryStream<Path> stream = getSubDirectorios(root)) {
@@ -90,15 +90,15 @@ public class EtlService {
 		procesarSubdirectorios(entradas, entradas);
 	}
 
-	private void procesarArchivos(Path root, Path path) {
-		try (DirectoryStream<Path> stream = getArchivos(path)) {
-			ArchivoHandler handler = getRootResponsabilityChain();
-			for (Path archivo : stream) {
+	private void procesarArchivos(Path root, Path pathArchivo) {
+		try (DirectoryStream<Path> stream = getArchivos(pathArchivo)) {
+			ArchivoHandler<?, ?> handler = getRootResponsabilityChain();
+			for (Path path : stream) {
 				// @formatter:off
 				handler.receiveRequest(
 						ArchivoRequest.builder()
 						.root(root)
-						.archivo(archivo)
+						.pathArchivo(path)
 						.build()
 						); 
 				// @formatter:on
@@ -113,7 +113,7 @@ public class EtlService {
 		try (DirectoryStream<Path> stream = getSubDirectorios(path)) {
 			for (Path directorio : stream) {
 				procesarArchivos(root, directorio);
-				procesarSubdirectorios(root,directorio);
+				procesarSubdirectorios(root, directorio);
 			}
 		} catch (IOException | DirectoryIteratorException e) {
 			log.error("Ocurrio el siguiente error: {}", e.getMessage());
@@ -122,9 +122,9 @@ public class EtlService {
 	}
 
 	// -----------------------------------------------------------------------------------------------
-	private ArchivoHandler getRootResponsabilityChain() {
+	private ArchivoHandler<?, ?> getRootResponsabilityChain() {
 		if (rootChain == null) {
- 			for (int i = 0; i < handlers.size(); i++) {
+			for (int i = 0; i < handlers.size(); i++) {
 				if (rootChain == null) {
 					rootChain = this.handlers.get(i);
 				} else {

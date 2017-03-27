@@ -18,6 +18,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.stereotype.Component;
 
+import com.tacticlogistics.integrador.etl.handlers.ArchivoHandler;
+
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -64,6 +66,7 @@ public class ExcelWorkSheetReaderBeta implements Reader {
 				extractor.setFormulasNotResults(false);
 				extractor.setIncludeSheetNames(false);
 				texto = extractor.getText();
+				ArchivoHandler.write(texto);
 				texto = texto.replace(String.valueOf(NON_BREAKING_SPACE), " ");
 			} catch (Exception e) {
 				throw new RuntimeException(e);
@@ -73,6 +76,7 @@ public class ExcelWorkSheetReaderBeta implements Reader {
 				extractor.setFormulasNotResults(false);
 				extractor.setIncludeSheetNames(false);
 				texto = extractor.getText();
+				ArchivoHandler.write(texto);
 			} catch (Exception e) {
 				throw new RuntimeException(e);
 			}

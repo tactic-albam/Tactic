@@ -11,9 +11,7 @@ import lombok.ToString;
 @ToString
 @Builder
 public class ArchivoRequest implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	@Getter
@@ -22,13 +20,13 @@ public class ArchivoRequest implements Serializable {
 
 	@Getter
 	@NonNull
-	private Path archivo;
+	private Path pathArchivo;
 
 	private Path pathRelativa = null;
 
-	public Path getDirectorioRelativo() {
+	public Path getSubDirectorioRelativo() {
 		if (pathRelativa == null) {
-			pathRelativa = this.getArchivo().getParent();
+			pathRelativa = this.getPathArchivo().getParent();
 			pathRelativa = this.getRoot().relativize(pathRelativa);
 		}
 		return pathRelativa;

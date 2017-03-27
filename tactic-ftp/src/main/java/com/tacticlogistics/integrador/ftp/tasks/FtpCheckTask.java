@@ -22,7 +22,7 @@ public class FtpCheckTask {
 	@Qualifier("local")
 	private CheckDirectoriosService checkDirectoriosLocalesService;
 
-	@Scheduled(cron = "0 */1 * * * ?")
+	@Scheduled(cron = "0 */7 * * * ?")
 	public void cronCheckDirectorios() {
 		try {
 			log.info("Inicio cronCheckDirectorios");

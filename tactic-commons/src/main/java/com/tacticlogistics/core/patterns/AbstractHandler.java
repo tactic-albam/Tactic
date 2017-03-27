@@ -1,5 +1,17 @@
-package com.tacticlogistics.integrador.etl.core;
+package com.tacticlogistics.core.patterns;
 
+
+/**
+ * Implementa el patron Chain of Responsibility
+ * 
+ * <p>Ver 
+ * <a href="https://sourcemaking.com/design_patterns/chain_of_responsibility">
+ * </a>.
+ * 
+ * @author albam@tacticlogistics.com
+ *
+ * @param <T> el tipo de mensaje que pasa por la cadena. 
+ */
 public abstract class AbstractHandler<T> {
 	protected AbstractHandler<T> nextHandler;
 

@@ -21,14 +21,15 @@ public class CharsetDetectorFileReaderBeta implements Reader {
 		}
 
 		if (charset == null) {
-			throw new RuntimeException("No fue posible determinar el juego de caracteres del archivo "+input.getFileName().toString());
+			throw new RuntimeException(
+					"No fue posible determinar el juego de caracteres del archivo " + input.getFileName().toString());
 		}
 
 		try (InputStreamReader reader = new InputStreamReader(new FileInputStream(input.toFile()), charset)) {
 			StringBuilder sb = new StringBuilder();
 			int c = 0;
 			while ((c = reader.read()) != -1) {
-				if (c != 65279) {
+				if (c != 65279 && c != 65533) {
 					sb.append((char) c);
 				}
 			}

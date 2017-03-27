@@ -1,0 +1,32 @@
+{"properties": [
+  {
+    "name": "directorios.locales",
+    "type": "java.lang.String",
+    "description": "A description for 'directorios.locales'"
+  },
+  {
+    "name": "etl.directorio.entradas",
+    "type": "java.lang.String",
+    "description": "A description for 'etl.directorio.entradas'"
+  },
+  {
+    "name": "tasks.etl-task.cron",
+    "type": "java.lang.String",
+    "description": "A description for 'tasks.etl-task.cron'"
+  },
+  {
+    "name": "etl.directorio.errores",
+    "type": "java.lang.String",
+    "description": "A description for 'etl.directorio.errores'"
+  },
+  {
+    "name": "etl.directorio.procesados",
+    "type": "java.lang.String",
+    "description": "A description for 'etl.directorio.procesados'"
+  },
+  {
+    "name": "etl.directorio.salidas",
+    "type": "java.lang.String",
+    "description": "A description for 'etl.directorio.salidas'"
+  }
+]}
