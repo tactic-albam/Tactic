@@ -6,8 +6,8 @@ import java.util.regex.Pattern;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
-import com.tacticlogistics.integrador.etl.decorators.Decorator;
-import com.tacticlogistics.integrador.etl.readers.Reader;
+import com.tacticlogistics.integrador.etl.handlers.decorators.Decorator;
+import com.tacticlogistics.integrador.etl.handlers.readers.Reader;
 
 @Component
 public class DummyArchivoHandler extends ArchivoHandler<Object,Long> {

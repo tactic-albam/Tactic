@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import com.tacticlogistics.integrador.etl.decorators.ETLErrorDTO;
-import com.tacticlogistics.integrador.etl.dto.ArchivoDTO;
-import com.tacticlogistics.integrador.etl.model.Archivo;
-import com.tacticlogistics.integrador.etl.model.ArchivoError;
-import com.tacticlogistics.integrador.etl.model.ArchivoRepository;
-import com.tacticlogistics.integrador.etl.model.EstadoArchivoType;
-import com.tacticlogistics.integrador.etl.model.TipoArchivo;
+import com.tacticlogistics.integrador.etl.handlers.decorators.ETLErrorDTO;
+import com.tacticlogistics.integrador.etl.handlers.dto.ArchivoDTO;
+import com.tacticlogistics.integrador.etl.model.etl.Archivo;
+import com.tacticlogistics.integrador.etl.model.etl.ArchivoError;
+import com.tacticlogistics.integrador.etl.model.etl.ArchivoRepository;
+import com.tacticlogistics.integrador.etl.model.etl.EstadoArchivoType;
+import com.tacticlogistics.integrador.etl.model.etl.TipoArchivo;
 
 import lombok.val;
 

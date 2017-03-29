@@ -21,12 +21,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import com.tacticlogistics.core.patterns.AbstractHandler;
-import com.tacticlogistics.integrador.etl.decorators.Decorator;
-import com.tacticlogistics.integrador.etl.decorators.ETLRuntimeException;
-import com.tacticlogistics.integrador.etl.dto.ArchivoDTO;
-import com.tacticlogistics.integrador.etl.model.TipoArchivo;
-import com.tacticlogistics.integrador.etl.model.TipoArchivoRepository;
-import com.tacticlogistics.integrador.etl.readers.Reader;
+import com.tacticlogistics.integrador.etl.handlers.decorators.Decorator;
+import com.tacticlogistics.integrador.etl.handlers.decorators.ETLRuntimeException;
+import com.tacticlogistics.integrador.etl.handlers.dto.ArchivoDTO;
+import com.tacticlogistics.integrador.etl.handlers.readers.Reader;
+import com.tacticlogistics.integrador.etl.model.etl.TipoArchivo;
+import com.tacticlogistics.integrador.etl.model.etl.TipoArchivoRepository;
 import com.tacticlogistics.integrador.etl.services.ArchivosService;
 
 import lombok.AccessLevel;
