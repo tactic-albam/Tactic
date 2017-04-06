@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -93,7 +94,8 @@ public class ArchivosService {
 	public Archivo marcarNoValidoPorExcepcion(Archivo archivo, Throwable e) {
 		Assert.notNull(archivo);
 		Assert.notNull(e);
-		Assert.hasLength(e.getMessage());
+		String message = StringUtils.defaultString(e.getMessage(),e.getClass().getName());
+
 
 		LocalDateTime fechaActualizacion = LocalDateTime.now();
 		archivo.setEstadoArchivo(EstadoArchivoType.ERROR_ESTRUCTURA);
@@ -101,7 +103,7 @@ public class ArchivosService {
 		archivo.setFechaActualizacion(fechaActualizacion);
 		archivo.setUsuarioActualizacion(archivo.getUsuarioActualizacion());
 
-		val error = new ArchivoError(0, "OCURRIO UNA ERROR GRAVE DURANTE EL PROCESAMIENTO DEL ARCHIVO", e.getMessage());
+		val error = new ArchivoError(0, "OCURRIO UNA ERROR GRAVE DURANTE EL PROCESAMIENTO DEL ARCHIVO", message);
 		archivo.getErrores().add(error);
 
 		val result = repository.save(archivo);

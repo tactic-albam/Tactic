@@ -9,8 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 import com.tacticlogistics.ClienteCodigoType;
-import com.tacticlogistics.integrador.etl.clientes.heinz.salidas.model.SalidaCadena;
-import com.tacticlogistics.integrador.etl.clientes.heinz.salidas.model.SalidaCadenaRepository;
+import com.tacticlogistics.integrador.etl.clientes.tactic.oms.MapEntidadSalidaDecorator;
 import com.tacticlogistics.integrador.etl.handlers.ArchivoHandler;
 import com.tacticlogistics.integrador.etl.handlers.decorators.CamposSplitterDecorator;
 import com.tacticlogistics.integrador.etl.handlers.decorators.CheckArchivoVacioDecorator;
@@ -18,22 +17,25 @@ import com.tacticlogistics.integrador.etl.handlers.decorators.CheckNumeroDeColum
 import com.tacticlogistics.integrador.etl.handlers.decorators.CheckRegistrosDuplicadosDecorator;
 import com.tacticlogistics.integrador.etl.handlers.decorators.CheckRestriccionesDeCamposDecorator;
 import com.tacticlogistics.integrador.etl.handlers.decorators.Decorator;
+import com.tacticlogistics.integrador.etl.handlers.decorators.IncluirCamposDecorator;
+import com.tacticlogistics.integrador.etl.handlers.decorators.IncluirEncabezadoDecorator;
 import com.tacticlogistics.integrador.etl.handlers.decorators.LineasSplitterDecorator;
 import com.tacticlogistics.integrador.etl.handlers.decorators.MayusculasDecorator;
+import com.tacticlogistics.integrador.etl.handlers.decorators.NormalizarSeparadoresDeRegistroDecorator;
 import com.tacticlogistics.integrador.etl.handlers.readers.CharsetDetectorFileReaderBeta;
-import com.tacticlogistics.integrador.etl.handlers.readers.ExcelWorkSheetReaderDelta;
-import com.tacticlogistics.integrador.etl.handlers.readers.ExcelWorkSheetReaderGamma;
 import com.tacticlogistics.integrador.etl.handlers.readers.Reader;
+import com.tacticlogistics.integrador.etl.model.oms.Salida;
+import com.tacticlogistics.integrador.etl.model.oms.SalidaRepository;
 
 @Component
-public class GwsSalidasArchivoHandler extends ArchivoHandler<SalidaCadena,Long> {
+public class GwsSalidasArchivoHandler extends ArchivoHandler<Salida,Long> {
 	private static final String CODIGO_TIPO_ARCHIVO = "GWS_SALIDAS";
 
 	@Autowired
 	private CharsetDetectorFileReaderBeta reader;
 
 	@Autowired
-	private SalidaCadenaRepository repository;
+	private SalidaRepository repository;
 
 	// ----------------------------------------------------------------------------------------------------------------
 	//
@@ -50,38 +52,42 @@ public class GwsSalidasArchivoHandler extends ArchivoHandler<SalidaCadena,Long> 
 
 	@Override
 	protected Path getCliente() {
-		Path result = Paths.get(ClienteCodigoType.HEINZ.toString());
+		Path result = Paths.get(ClienteCodigoType.GWS.toString());
 		return result;
 	}
 
 	@Override
 	protected Path getSubDirectorioRelativo() {
-		Path result = Paths.get(".");
+		Path result = Paths.get("ORDENES");
 		return result;
 	}
 
 	@Override
 	protected Pattern getFileNamePattern() {
-		return PATTERN_XLS;
+		return PATTERN_TXT;
 	}
 	
 	@Override
-	protected Decorator<SalidaCadena> getTransformador() {
+	protected Decorator<Salida> getTransformador() {
 		// @formatter:off
 		return new MapEntidadSalidaDecorator(
-				new CheckRegistrosDuplicadosDecorator<SalidaCadena>(
-					new CheckRestriccionesDeCamposDecorator<SalidaCadena>(
-						new CamposSplitterDecorator<SalidaCadena>(
-							new CheckNumeroDeColumnasDecorator<SalidaCadena>(
-								new CheckArchivoVacioDecorator<SalidaCadena>(
-									new LineasSplitterDecorator<SalidaCadena>(
-										new MayusculasDecorator<SalidaCadena>(
-		))))))));
+				new CheckRegistrosDuplicadosDecorator<Salida>(
+					new CheckRestriccionesDeCamposDecorator<Salida>(
+						new EnriquecerCamposDecorator(
+							new IncluirCamposDecorator<Salida>(
+								new CamposSplitterDecorator<Salida>(
+									new CheckNumeroDeColumnasDecorator<Salida>(
+										new CheckArchivoVacioDecorator<Salida>(
+											new LineasSplitterDecorator<Salida>(
+												new IncluirEncabezadoDecorator<Salida>(
+													new NormalizarSeparadoresDeRegistroDecorator<Salida>(
+														new MayusculasDecorator<Salida>(
+				))))))))))));
 		// @formatter:on
 	}
 
 	@Override
-	protected JpaRepository<SalidaCadena, Long> getRepository() {
+	protected JpaRepository<Salida, Long> getRepository() {
 		return repository;
 	}
 }

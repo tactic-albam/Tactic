@@ -54,7 +54,8 @@ public class CamposSplitterDecorator<T> extends Decorator<T> {
 		}
 
 		if (error) {
-			ETLRuntimeException.throwException("Ocurrieron errores durante la separación de los campos de los registros del archivo", result);
+			ETLRuntimeException.throwException(
+					"Ocurrieron errores durante la separación de los campos de los registros del archivo", result);
 		}
 
 		registros.remove(0);
@@ -69,7 +70,7 @@ public class CamposSplitterDecorator<T> extends Decorator<T> {
 		for (int i = 0; i < datos.length; i++) {
 			datos[i] = datos[i].trim();
 		}
-		
+
 		for (Campo campo : campos) {
 			boolean encontrado = false;
 			for (int i = 0; i < datos.length; i++) {
@@ -87,7 +88,7 @@ public class CamposSplitterDecorator<T> extends Decorator<T> {
 
 		if (!errores.isEmpty()) {
 			String mensaje = "error columnas: La siguientes columnas no se encontraron en el archivo: %s";
-			throw new RuntimeException(String.format(mensaje, StringUtils.join(errores,",")));
+			throw new RuntimeException(String.format(mensaje, StringUtils.join(errores, ",")));
 		}
 
 		return result;
@@ -104,6 +105,12 @@ public class CamposSplitterDecorator<T> extends Decorator<T> {
 				if (valor.isEmpty() && !campo.getValorPredeterminado().isEmpty()) {
 					valor = campo.getValorPredeterminado();
 				}
+				if (campo.isTruncarCaracteres()) {
+					int numeroCaracteres = campo.getNumeroCaracteres();
+					if (valor.length() > numeroCaracteres) {
+						valor = StringUtils.left(valor, numeroCaracteres);
+					}
+				}
 				result.put(key, valor);
 			} catch (IndexOutOfBoundsException e) {
 				String mensaje = "No se encontró el campo %s en la posición %d";
@@ -114,7 +121,7 @@ public class CamposSplitterDecorator<T> extends Decorator<T> {
 				String mensaje = "Ocurrio el siguiente error al leer el campo %s en la posición %d";
 				mensaje = String.format(mensaje, key, mapping.get(key));
 				sb.append(mensaje);
-				sb.append(",");				
+				sb.append(",");
 			}
 		}
 		if (sb.length() > 0) {

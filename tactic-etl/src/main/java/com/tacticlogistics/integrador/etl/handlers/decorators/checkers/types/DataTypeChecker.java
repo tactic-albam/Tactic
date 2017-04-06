@@ -41,7 +41,7 @@ public abstract class DataTypeChecker<T> implements CampoChecker<String> {
 
 	@Override
 	public String getMensajeDeError() {
-		return "%s:El valor %s del campo %s no es un valor de tipo %s valido.";
+		return "%s:El valor %s del campo %s no es un valor de tipo %s valido.Ejemplos validos son:%s";
 	}
 
 	abstract protected String getEjemplosValidos(Campo campo);

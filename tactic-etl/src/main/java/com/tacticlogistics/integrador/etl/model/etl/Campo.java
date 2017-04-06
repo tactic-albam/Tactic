@@ -66,6 +66,7 @@ public class Campo {
 
 	private int numeroCaracteres;
 
+	private boolean truncarCaracteres;
 	private boolean ignorar;
 	private boolean incluir;
 	private boolean obligatorio;

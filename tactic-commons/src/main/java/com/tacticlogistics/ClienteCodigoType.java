@@ -4,5 +4,6 @@ public enum ClienteCodigoType {
 	DICERMEX,
 	GWS,
 	HEINZ,
+	PANECO,
 	TACTIC
 }

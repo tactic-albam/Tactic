@@ -1,4 +1,4 @@
-package com.tacticlogistics.integrador.etl.clientes.tactic.tms.rutas.rutacontrol;
+package com.tacticlogistics.integrador.etl.clientes.paneco.salidas;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -9,8 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 import com.tacticlogistics.ClienteCodigoType;
-import com.tacticlogistics.integrador.etl.clientes.tactic.tms.rutas.rutacontrol.model.VisitaRepository;
-import com.tacticlogistics.integrador.etl.clientes.tactic.tms.rutas.rutacontrol.model.VisitaRutaControl;
+import com.tacticlogistics.integrador.etl.clientes.tactic.oms.MapEntidadSalidaDecorator;
 import com.tacticlogistics.integrador.etl.handlers.ArchivoHandler;
 import com.tacticlogistics.integrador.etl.handlers.decorators.CamposSplitterDecorator;
 import com.tacticlogistics.integrador.etl.handlers.decorators.CheckArchivoVacioDecorator;
@@ -18,36 +17,31 @@ import com.tacticlogistics.integrador.etl.handlers.decorators.CheckNumeroDeColum
 import com.tacticlogistics.integrador.etl.handlers.decorators.CheckRegistrosDuplicadosDecorator;
 import com.tacticlogistics.integrador.etl.handlers.decorators.CheckRestriccionesDeCamposDecorator;
 import com.tacticlogistics.integrador.etl.handlers.decorators.Decorator;
+import com.tacticlogistics.integrador.etl.handlers.decorators.IncluirCamposDecorator;
 import com.tacticlogistics.integrador.etl.handlers.decorators.IncluirEncabezadoDecorator;
 import com.tacticlogistics.integrador.etl.handlers.decorators.LineasSplitterDecorator;
 import com.tacticlogistics.integrador.etl.handlers.decorators.MayusculasDecorator;
 import com.tacticlogistics.integrador.etl.handlers.decorators.NormalizarSeparadoresDeRegistroDecorator;
-import com.tacticlogistics.integrador.etl.handlers.readers.ExcelWorkSheetReaderDelta;
+import com.tacticlogistics.integrador.etl.handlers.readers.CharsetDetectorFileReaderBeta;
 import com.tacticlogistics.integrador.etl.handlers.readers.Reader;
+import com.tacticlogistics.integrador.etl.model.oms.Salida;
+import com.tacticlogistics.integrador.etl.model.oms.SalidaRepository;
 
 @Component
-public class VisitasRutaControlArchivoHandler extends ArchivoHandler<VisitaRutaControl,Long> {
-	private static final String CODIGO_TIPO_ARCHIVO = "RUTACONTROL_VISITAS";
-
-	private static final String WORKSHEET_NAME = "Resumen_Diario";
+public class PanecoSalidasArchivoHandler extends ArchivoHandler<Salida,Long> {
+	private static final String CODIGO_TIPO_ARCHIVO = "PANECO_SALIDAS";
 
 	@Autowired
-	private ExcelWorkSheetReaderDelta reader;
+	private CharsetDetectorFileReaderBeta reader;
 
 	@Autowired
-	private VisitaRepository repository;
+	private SalidaRepository repository;
 
 	// ----------------------------------------------------------------------------------------------------------------
 	//
 	// ----------------------------------------------------------------------------------------------------------------
 	@Override
 	protected Reader getReader() {
-		if (this.reader.getWorkSheetName() == null) {
-			this.reader.setWorkSheetName(WORKSHEET_NAME);
-			this.reader.setRowOffset(6);
-			this.reader.setColOffset(1);
-			this.reader.setLastCellNum(15);
-		}
 		return reader;
 	}
 
@@ -58,41 +52,42 @@ public class VisitasRutaControlArchivoHandler extends ArchivoHandler<VisitaRutaC
 
 	@Override
 	protected Path getCliente() {
-		Path result = Paths.get(ClienteCodigoType.TACTIC.toString());
+		Path result = Paths.get(ClienteCodigoType.PANECO.toString());
 		return result;
 	}
 
 	@Override
 	protected Path getSubDirectorioRelativo() {
-		Path result = Paths.get("TMS\\RUTAS\\RUTACONTROL\\VISITAS");
+		Path result = Paths.get("ORDENES\\VENTAS");
 		return result;
 	}
 
 	@Override
 	protected Pattern getFileNamePattern() {
-		return PATTERN_XLS;
+		return PATTERN_TXT;
 	}
 	
 	@Override
-	protected Decorator<VisitaRutaControl> getTransformador() {
+	protected Decorator<Salida> getTransformador() {
 		// @formatter:off
-		return new MapEntidadVisitaRutaControlDecorator(
-				new CheckRegistrosDuplicadosDecorator<VisitaRutaControl>(
-					new CheckRestriccionesDeCamposDecorator<VisitaRutaControl>(
-						new ReemplazarValoresVisitaRutaControlDecorator(
-							new CamposSplitterDecorator<VisitaRutaControl>(
-								new CheckNumeroDeColumnasDecorator<VisitaRutaControl>(
-									new CheckArchivoVacioDecorator<VisitaRutaControl>(
-										new LineasSplitterDecorator<VisitaRutaControl>(
-											new IncluirEncabezadoDecorator<VisitaRutaControl>(
-												new NormalizarSeparadoresDeRegistroDecorator<VisitaRutaControl>(
-													new MayusculasDecorator<VisitaRutaControl>(
-		)))))))))));
+		return new MapEntidadSalidaDecorator(
+				new CheckRegistrosDuplicadosDecorator<Salida>(
+					new CheckRestriccionesDeCamposDecorator<Salida>(
+						new EnriquecerCamposDecorator(
+							new IncluirCamposDecorator<Salida>(
+								new CamposSplitterDecorator<Salida>(
+									new CheckNumeroDeColumnasDecorator<Salida>(
+										new CheckArchivoVacioDecorator<Salida>(
+											new LineasSplitterDecorator<Salida>(
+												new IncluirEncabezadoDecorator<Salida>(
+													new NormalizarSeparadoresDeRegistroDecorator<Salida>(
+														new MayusculasDecorator<Salida>(
+				))))))))))));
 		// @formatter:on
 	}
 
 	@Override
-	protected JpaRepository<VisitaRutaControl, Long> getRepository() {
+	protected JpaRepository<Salida, Long> getRepository() {
 		return repository;
 	}
 }

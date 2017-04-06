@@ -66,7 +66,7 @@ public class VisitaRutaControl {
 
 	private Integer valorRecaudado;
 
-	@Column(length = 200, nullable = false)
+	@Column(length = 1000, nullable = false)
 	@NotNull
 	private String observaciones;
 

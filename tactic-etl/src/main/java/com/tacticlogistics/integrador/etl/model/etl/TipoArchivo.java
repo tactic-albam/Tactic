@@ -136,6 +136,17 @@ public class TipoArchivo {
 		return result;
 	}
 
+	public List<Campo> getCamposIncluidos() {
+		// @formatter:off
+		List<Campo> result = this.getCampos()
+				.stream()
+				.filter(a -> a.isIncluir())
+				.sorted((a, b) -> Integer.compare(a.getOrdinal(), b.getOrdinal()))
+				.collect(Collectors.toList());
+		// @formatter:on
+		return result;
+	}
+
 	public List<String> getLlaves() {
 		// @formatter:off
 		List<String> result = this

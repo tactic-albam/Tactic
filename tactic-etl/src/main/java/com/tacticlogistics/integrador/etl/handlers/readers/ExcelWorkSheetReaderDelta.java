@@ -30,6 +30,7 @@ import com.tacticlogistics.integrador.etl.handlers.ArchivoHandler;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.val;
 
 @Component
 @Scope(SCOPE_PROTOTYPE)
@@ -38,8 +39,16 @@ import lombok.Setter;
 public class ExcelWorkSheetReaderDelta implements Reader {
 	public static final char NON_BREAKING_SPACE = 160;
 
+	private static DateTimeFormatter dateTimeformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+	private static DataFormatter formatter = new DataFormatter();
+
 	@NonNull
 	private String workSheetName;
+
+	private int rowOffset = 0;
+	private int colOffset = 0;
+	private Integer lastCellNum;
 
 	@Override
 	public String read(Path archivo) throws IOException {
@@ -78,42 +87,19 @@ public class ExcelWorkSheetReaderDelta implements Reader {
 		return sheet;
 	}
 
-	@SuppressWarnings("deprecation")
 	private String getData(Sheet sheet) {
-		DateTimeFormatter dateTimeformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		DataFormatter formatter = new DataFormatter();
+		int numeroColumnasEsperado = getNumeroDeColumnasEsperado(sheet, rowOffset);
+
 		StringBuilder sb = new StringBuilder();
-
-		for (Row row : sheet) {
-			for (Cell cell : row) {
-				// get the text that appears in the cell by getting the cell
-				// value and applying any data formats (Date, 0.00, 1.23e9,
-				// $1.23, etc)
-				String text = formatter.formatCellValue(cell);
-
-				// Alternatively, get the value and format it yourself
-				switch (cell.getCellTypeEnum()) {
-				case STRING:
-					break;
-				case NUMERIC:
-					if (DateUtil.isCellDateFormatted(cell)) {
-						Date date = cell.getDateCellValue();
-						LocalDateTime ldt = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
-						text = ldt.format(dateTimeformatter);
-						text = StringUtils.remove(text, " 00:00:00");
-					}
-					break;
-				case BOOLEAN:
-					break;
-				case FORMULA:
-					break;
-				case BLANK:
-					break;
-				default:
-				}
+		for (int i = rowOffset; i < sheet.getLastRowNum(); i++) {
+			Row row = sheet.getRow(i);
+			for (int j = colOffset; j < numeroColumnasEsperado; j++) {
+				val cell = row.getCell(j);
+				val text = getCellText(cell);
 
 				sb.append(text).append("\t");
 			}
+
 			if (sb.length() > 0) {
 				sb.setLength(sb.length() - 1);
 			}
@@ -122,5 +108,63 @@ public class ExcelWorkSheetReaderDelta implements Reader {
 
 		String result = sb.toString();
 		return result;
+	}
+
+	private int getNumeroDeColumnasEsperado(Sheet sheet, int rowOffset) {
+		int result = 0;
+		
+		if (this.getLastCellNum() != null) {
+			result = this.getLastCellNum().intValue();
+		} else {
+			Row row = sheet.getRow(rowOffset);
+
+			if (row != null) {
+				result = row.getLastCellNum();
+			}
+		}
+		
+		return result;
+	}
+
+	@SuppressWarnings("deprecation")
+	private String getCellText(Cell cell) {
+		String text = "";
+
+		if (cell != null) {
+			text = formatter.formatCellValue(cell);
+			// Alternatively, get the value and format it yourself
+			switch (cell.getCellTypeEnum()) {
+			case STRING:
+				break;
+			case NUMERIC:
+				if (DateUtil.isCellDateFormatted(cell)) {
+					Date date = cell.getDateCellValue();
+					LocalDateTime ldt = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+					text = ldt.format(dateTimeformatter);
+					text = StringUtils.remove(text, " 00:00:00");
+				}
+				break;
+			case BOOLEAN:
+				break;
+			case FORMULA:
+				System.out.println("cell.getCellFormula()");
+				System.out.println(cell.getCellFormula());
+				break;
+			case BLANK:
+				break;
+			default:
+			}
+		}
+
+		if (text.startsWith("T(\"") && text.endsWith("\")")) {
+			if (text.equals("T(\"\")")) {
+				text = "";
+			} else {
+				text = text.substring(3, text.length() - 2);
+			}
+		}
+
+		text = StringUtils.replaceChars(text, "\t\n", "  ");
+		return text;
 	}
 }
