@@ -1,0 +1,92 @@
+{"properties": [
+  {
+    "name": "tasks.cron",
+    "type": "java.lang.String",
+    "description": "A description for 'tasks.cron'"
+  },
+  {
+    "name": "etl.directorios.locales",
+    "type": "java.lang.String",
+    "description": "A description for 'etl.directorios.locales'"
+  },
+  {
+    "name": "etl.directorio.entradas",
+    "type": "java.lang.String",
+    "description": "A description for 'etl.directorio.entradas'"
+  },
+  {
+    "name": "etl.directorio.errores",
+    "type": "java.lang.String",
+    "description": "A description for 'etl.directorio.errores'"
+  },
+  {
+    "name": "etl.directorio.procesados",
+    "type": "java.lang.String",
+    "description": "A description for 'etl.directorio.procesados'"
+  },
+  {
+    "name": "etl.directorio.salidas",
+    "type": "java.lang.String",
+    "description": "A description for 'etl.directorio.salidas'"
+  },
+  {
+    "name": "wms.directorios.entradas",
+    "type": "java.lang.String",
+    "description": "A description for 'wms.directorios.entradas'"
+  },
+  {
+    "name": "mail.host",
+    "type": "java.lang.String",
+    "description": "A description for 'mail.host'"
+  },
+  {
+    "name": "mail.port",
+    "type": "java.lang.String",
+    "description": "A description for 'mail.port'"
+  },
+  {
+    "name": "mail.storeType",
+    "type": "java.lang.String",
+    "description": "A description for 'mail.storeType'"
+  },
+  {
+    "name": "mail.user",
+    "type": "java.lang.String",
+    "description": "A description for 'mail.user'"
+  },
+  {
+    "name": "mail.password",
+    "type": "java.lang.String",
+    "description": "A description for 'mail.password'"
+  },
+  {
+    "name": "mail.inbox.host",
+    "type": "java.lang.String",
+    "description": "A description for 'mail.inbox.host'"
+  },
+  {
+    "name": "mail.inbox.port",
+    "type": "java.lang.String",
+    "description": "A description for 'mail.inbox.port'"
+  },
+  {
+    "name": "mail.inbox.storeType",
+    "type": "java.lang.String",
+    "description": "A description for 'mail.inbox.storeType'"
+  },
+  {
+    "name": "mail.inbox.user",
+    "type": "java.lang.String",
+    "description": "A description for 'mail.inbox.user'"
+  },
+  {
+    "name": "mail.inbox.password",
+    "type": "java.lang.String",
+    "description": "A description for 'mail.inbox.password'"
+  },
+  {
+    "name": "mail.inbox.storeType",
+    "type": "java.lang.String",
+    "description": "A description for 'mail.inbox.storeType'"
+  }
+]}

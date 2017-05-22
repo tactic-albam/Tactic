@@ -1,0 +1,122 @@
+{"properties": [
+  {
+    "name": "tactic.ftp.nombre",
+    "type": "java.lang.String",
+    "description": "A description for 'tactic.ftp.nombre'"
+  },
+  {
+    "name": "tactic.ftp.host",
+    "type": "java.lang.String",
+    "description": "A description for 'tactic.ftp.host'"
+  },
+  {
+    "name": "tactic.ftp.port",
+    "type": "java.lang.String",
+    "description": "A description for 'tactic.ftp.port'"
+  },
+  {
+    "name": "tactic.ftp.username",
+    "type": "java.lang.String",
+    "description": "A description for 'tactic.ftp.username'"
+  },
+  {
+    "name": "tactic.ftp.password",
+    "type": "java.lang.String",
+    "description": "A description for 'tactic.ftp.password'"
+  },
+  {
+    "name": "tactic.ftp.local\r\ntactic.ftp.remoto\r\n\r\n\r\ngws.ftp.host",
+    "type": "java.lang.String",
+    "description": "A description for 'tactic.ftp.local\r\ntactic.ftp.remoto\r\n\r\n\r\ngws.ftp.host'"
+  },
+  {
+    "name": "tactic.ftp.remoto",
+    "type": "java.lang.String",
+    "description": "A description for 'tactic.ftp.remoto'"
+  },
+  {
+    "name": "tactic.ftp.pool.nombre",
+    "type": "java.lang.String",
+    "description": "A description for 'tactic.ftp.pool.nombre'"
+  },
+  {
+    "name": "tactic.ftp.pool.host",
+    "type": "java.lang.String",
+    "description": "A description for 'tactic.ftp.pool.host'"
+  },
+  {
+    "name": "tactic.ftp.pool.port",
+    "type": "java.lang.String",
+    "description": "A description for 'tactic.ftp.pool.port'"
+  },
+  {
+    "name": "tactic.ftp.pool.username",
+    "type": "java.lang.String",
+    "description": "A description for 'tactic.ftp.pool.username'"
+  },
+  {
+    "name": "tactic.ftp.pool.password",
+    "type": "java.lang.String",
+    "description": "A description for 'tactic.ftp.pool.password'"
+  },
+  {
+    "name": "tactic.ftp.directorioLocal",
+    "type": "java.lang.String",
+    "description": "A description for 'tactic.ftp.directorioLocal'"
+  },
+  {
+    "name": "tactic.ftp.directorioRemoto",
+    "type": "java.lang.String",
+    "description": "A description for 'tactic.ftp.directorioRemoto'"
+  },
+  {
+    "name": "tactic.ftp.directorioLocal",
+    "type": "java.lang.String",
+    "description": "A description for 'tactic.ftp.directorioLocal'"
+  },
+  {
+    "name": "tactic.ftp.directorioLocal",
+    "type": "java.lang.String",
+    "description": "A description for 'tactic.ftp.directorioLocal'"
+  },
+  {
+    "name": "gws.ftp.nombre",
+    "type": "java.lang.String",
+    "description": "A description for 'gws.ftp.nombre'"
+  },
+  {
+    "name": "gws.ftp.directorioLocal",
+    "type": "java.lang.String",
+    "description": "A description for 'gws.ftp.directorioLocal'"
+  },
+  {
+    "name": "gws.ftp.directorioRemoto",
+    "type": "java.lang.String",
+    "description": "A description for 'gws.ftp.directorioRemoto'"
+  },
+  {
+    "name": "gws.ftp.pool.host",
+    "type": "java.lang.String",
+    "description": "A description for 'gws.ftp.pool.host'"
+  },
+  {
+    "name": "gws.ftp.pool.port",
+    "type": "java.lang.String",
+    "description": "A description for 'gws.ftp.pool.port'"
+  },
+  {
+    "name": "gws.ftp.pool.username",
+    "type": "java.lang.String",
+    "description": "A description for 'gws.ftp.pool.username'"
+  },
+  {
+    "name": "gws.ftp.pool.password",
+    "type": "java.lang.String",
+    "description": "A description for 'gws.ftp.pool.password'"
+  },
+  {
+    "name": "directorios.locales",
+    "type": "java.lang.String",
+    "description": "A description for 'directorios.locales'"
+  }
+]}
