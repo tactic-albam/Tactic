@@ -5,8 +5,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.tacticlogistics.integrador.db.services.DbIntegrationService;
-import com.tacticlogistics.integrador.mail.fetch.services.FetchMailService;
 import com.tacticlogistics.integrador.files.services.FilesIntegrationService;
+import com.tacticlogistics.integrador.mail.fetch.services.FetchMailService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,11 +27,11 @@ public class CronTask {
 	public void cron() {
 		log.debug("Inicio cron");
 
-		fetchMailService.run();
+		//fetchMailService.run();
 		
 		filesService.run();
 		
-		dbService.run();
+		//dbService.run();
 
 		log.debug("Fin cron");
 	}

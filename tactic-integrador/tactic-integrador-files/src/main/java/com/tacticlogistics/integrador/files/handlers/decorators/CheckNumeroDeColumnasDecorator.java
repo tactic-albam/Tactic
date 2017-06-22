@@ -42,7 +42,8 @@ public class CheckNumeroDeColumnasDecorator<T> extends Decorator<T> {
 	private boolean checkNumeroColumnas(final List<RegistroDTO<T>> registros, int numeroColumnas, String separador) {
 		boolean result = false;
 		for (val registro : registros) {
-			int n = registro.getLinea().split(separador, -1).length;
+			val valores = registro.getLinea().split(separador, -1); 
+			int n = valores.length;
 
 			if (n != numeroColumnas) {
 				result = true;

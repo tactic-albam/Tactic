@@ -94,7 +94,7 @@ public class DbProntoFormProductoMedidaHandler extends DbHandler {
 			Marshaller marshaller = jaxbContext.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			marshaller.setProperty(Marshaller.JAXB_ENCODING, XML_ENCODING);
-			
+
 			procesarRegistro(registros, factory, marshaller, directorio, prefijoArchivo);
 			archivo.marcarProcesado(null);
 		} catch (JAXBException e) {
@@ -111,15 +111,11 @@ public class DbProntoFormProductoMedidaHandler extends DbHandler {
 		return prefijoArchivo;
 	}
 
-	private boolean procesarRegistro(
-			final List<ProntoFormProductoMedida> registros,
-			final ObjectFactory factory, 
-			final Marshaller marshaller, 
-			final Path directorio, 
-			final String prefijoArchivo) {
-		
+	private boolean procesarRegistro(final List<ProntoFormProductoMedida> registros, final ObjectFactory factory,
+			final Marshaller marshaller, final Path directorio, final String prefijoArchivo) {
+
 		boolean result = true;
-		
+
 		for (val registro : registros) {
 			String productoCodigo = getProductoCodigo(registro);
 			String nombreArchivo = String.format("%1s-%2s", prefijoArchivo, productoCodigo);
@@ -131,12 +127,12 @@ public class DbProntoFormProductoMedidaHandler extends DbHandler {
 				PARTFOOTINBIFD partfootinbifd = buildXMLPartFoot(registro, factory);
 				marshaller.marshal(partfootinbifd, nombreArchivoXML.toFile());
 				FileUtils.writeStringToFile(nombreArchivoTRG.toFile(), "", Charset.defaultCharset());
-				
+
 				estadoRegistro = EstadoRegistroType.PROCESADO;
 			} catch (JAXBException | IOException e) {
 				estadoRegistro = EstadoRegistroType.ERROR_FATAL;
 				result = false;
-				log.error("",e);
+				log.error("", e);
 			}
 
 			registro.setEstadoRegistro(estadoRegistro);
@@ -147,8 +143,7 @@ public class DbProntoFormProductoMedidaHandler extends DbHandler {
 		return result;
 	}
 
-	private String getProductoCodigo(
-			final ProntoFormProductoMedida registro) {
+	private String getProductoCodigo(final ProntoFormProductoMedida registro) {
 		String productoCodigo;
 		productoCodigo = registro.getProductoCodigo();
 		if (StringUtils.containsAny(productoCodigo, SEARCH_CHARS)) {
@@ -162,24 +157,34 @@ public class DbProntoFormProductoMedidaHandler extends DbHandler {
 		CTRLSEG ctrlseg;
 		;
 		PARTFOOTSEG partfootseg;
-		PARTFOOTDTLSEG partfootdtlseg;
+		PARTFOOTDTLSEG partfootdtlseg0;
+		PARTFOOTDTLSEG partfootdtlseg1;
+		PARTFOOTDTLSEG partfootdtlseg2;
 
 		ctrlseg = buildXMLCtrlSeg(registro, factory);
 		partfootseg = buildXMLPartFootSeg(registro, factory);
 
-		partfootdtlseg = buildXMLPartFootDtlNivel0(registro, factory);
-		if (partfootdtlseg != null) {
-			partfootseg.getPARTFOOTDTLSEG().add(partfootdtlseg);
+		partfootdtlseg0 = buildXMLPartFootDtlNivel0(registro, factory);
+		partfootdtlseg1 = buildXMLPartFootDtlNivel1(registro, factory);
+		partfootdtlseg2 = buildXMLPartFootDtlNivel2(registro, factory);
+
+		if (partfootdtlseg0 != null && partfootdtlseg1 == null) {
+			partfootdtlseg0.setCASFLG("1");
+			if (partfootdtlseg2 != null) {
+				partfootdtlseg2.setUOMLVL("1");
+			}
 		}
 
-		partfootdtlseg = buildXMLPartFootDtlNivel1(registro, factory);
-		if (partfootdtlseg != null) {
-			partfootseg.getPARTFOOTDTLSEG().add(partfootdtlseg);
+		if (partfootdtlseg0 != null) {
+			partfootseg.getPARTFOOTDTLSEG().add(partfootdtlseg0);
 		}
 
-		partfootdtlseg = buildXMLPartFootDtlNivel2(registro, factory);
-		if (partfootdtlseg != null) {
-			partfootseg.getPARTFOOTDTLSEG().add(partfootdtlseg);
+		if (partfootdtlseg1 != null) {
+			partfootseg.getPARTFOOTDTLSEG().add(partfootdtlseg1);
+		}
+
+		if (partfootdtlseg2 != null) {
+			partfootseg.getPARTFOOTDTLSEG().add(partfootdtlseg2);
 		}
 
 		ctrlseg.setPARTFOOTSEG(partfootseg);
@@ -271,7 +276,7 @@ public class DbProntoFormProductoMedidaHandler extends DbHandler {
 		return partfootdtlseg;
 	}
 
-	private PARTFOOTDTLSEG buildXMLPartFootDtl(String unidadCodigo, int factorConversion, BigDecimal largo,
+	private PARTFOOTDTLSEG buildXMLPartFootDtl(String unidadCodigo, Integer factorConversion, BigDecimal largo,
 			BigDecimal ancho, BigDecimal alto, BigDecimal peso, ObjectFactory factory) {
 		PARTFOOTDTLSEG partfootdtlseg = null;
 		if (StringUtils.isNotEmpty(unidadCodigo)) {
@@ -283,7 +288,7 @@ public class DbProntoFormProductoMedidaHandler extends DbHandler {
 		return partfootdtlseg;
 	}
 
-	private void fillValoresRegistro(PARTFOOTDTLSEG partfootdtlseg, String unidadCodigo, int factorConversion,
+	private void fillValoresRegistro(PARTFOOTDTLSEG partfootdtlseg, String unidadCodigo, Integer factorConversion,
 			BigDecimal largo, BigDecimal ancho, BigDecimal alto, BigDecimal peso) {
 
 		if (partfootdtlseg != null) {

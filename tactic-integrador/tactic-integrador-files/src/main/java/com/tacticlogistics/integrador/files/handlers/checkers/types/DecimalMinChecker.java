@@ -9,4 +9,9 @@ public class DecimalMinChecker extends MinChecker<BigDecimal> {
 	protected BigDecimal getValorLimite(Campo campo) {
 		return campo.getValorDecimalMin();
 	}
+	
+	@Override
+	public String getMensajeDeError() {
+		return "%s:El valor %f del campo %s debe ser mayor o igual que %s.";
+	}
 }

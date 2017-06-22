@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 import org.springframework.stereotype.Component;
 
 import com.tacticlogistics.integrador.files.clientes.heinz.cadenas.SalidasCadenasArchivoHandler;
-import com.tacticlogistics.integrador.files.clientes.tactic.oms.MapEntidadSalidaDecorator;
+import com.tacticlogistics.integrador.files.clientes.tactic.oms.salidas.MapEntidadSalidaDecorator;
 import com.tacticlogistics.integrador.files.handlers.decorators.CheckRegistrosDuplicadosDecorator;
 import com.tacticlogistics.integrador.files.handlers.decorators.CheckRestriccionesDeCamposDecorator;
 import com.tacticlogistics.integrador.files.handlers.decorators.Decorator;

@@ -68,15 +68,16 @@ public class Salida extends Registro {
 	public static final String REQUIERE_AGENDAMIENTO = "REQUIERE_AGENDAMIENTO";
 
 	public static final String PRODUCTO_CODIGO = "PRODUCTO_CODIGO";
-	public static final String PRODUCTO_CODIGO_ALTERNO = "PRODUCTO_CODIGO_ALTERNO";
 	public static final String PRODUCTO_NOMBRE = "PRODUCTO_NOMBRE";
+	public static final String UNIDAD_CODIGO = "UNIDAD_CODIGO";
 	public static final String CANTIDAD = "CANTIDAD";
+	
 	public static final String BODEGA_ORIGEN_CODIGO = "BODEGA_ORIGEN_CODIGO";
-	public static final String ESTADO_INVENTARIO_ORIGEN_CODIGO = "ESTADO_INVENTARIO_DESTINO_CODIGO";
+	public static final String ESTADO_INVENTARIO_ORIGEN_CODIGO = "ESTADO_INVENTARIO_ORIGEN_CODIGO";
 	public static final String BODEGA_DESTINO_CODIGO = "BODEGA_DESTINO_CODIGO";
 	public static final String ESTADO_INVENTARIO_DESTINO_CODIGO = "ESTADO_INVENTARIO_DESTINO_CODIGO";
+
 	public static final String VALOR_UNITARIO_DECLARADO = "VALOR_UNITARIO_DECLARADO";
-	public static final String VALOR_VENTA_LINEA = "VALOR_VENTA_LINEA";
 	public static final String LOTE = "LOTE";
 	public static final String PREDISTRIBUCION_CROSSDOCK = "PREDISTRIBUCION_CROSSDOCK";
 	public static final String PREDISTRIBUCION_EVENTO = "PREDISTRIBUCION_EVENTO";
@@ -90,7 +91,6 @@ public class Salida extends Registro {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_salida")
 	private Long id;
 
 	@Column(length = 20, nullable = false)
@@ -110,7 +110,7 @@ public class Salida extends Registro {
 	private String canalCodigo;
 
 	@Column(length = 20, nullable = false)
-	@NotEmpty
+	@NotNull
 	private String terceroIdentificacion;
 
 	@Column(length = 50, nullable = false)
@@ -183,13 +183,13 @@ public class Salida extends Registro {
 	@NotNull
 	private String productoCodigo;
 
-	@Column(length = 50, nullable = false)
-	@NotNull
-	private String productoCodigoAlterno;
-
 	@Column(length = 200, nullable = false)
 	@NotNull
 	private String productoNombre;
+
+	@Column(length = 50, nullable = false)
+	@NotNull
+	private String unidadCodigo;
 
 	private int cantidad;
 
@@ -210,7 +210,6 @@ public class Salida extends Registro {
 	private String estadoInventarioDestinoCodigo;
 
 	private BigDecimal valorUnitarioDeclarado;
-	private BigDecimal valorVentaLinea;
 
 	@Column(length = 30, nullable = false)
 	@NotNull
@@ -245,35 +244,48 @@ public class Salida extends Registro {
 	private Long idTercero;
 	private Long idPunto;
 	private Long idCiudad;
+	private Long idProducto;
+	private Long idUnidad;
 	private Long idBodegaOrigen;
 	@Column(name = "id_estado_inventario_origen", length = 50)
 	private String idEstadoInventarioOrigen;
 	private Long idBodegaDestino;
 	@Column(name = "id_estado_inventario_destino", length = 50)
 	private String idEstadoInventarioDestino;
-
 	
+	// @formatter:off
 	@Builder
-	public Salida(Long id, String clienteCodigo, String servicioCodigo, String numeroOrden, String canalCodigo,
-			String terceroIdentificacion, String terceroSucursal, String terceroNombre, String ciudadCodigo,
-			String direccion, String puntoCodigo, String puntoNombre, LocalDate femi, LocalDate fema, LocalTime homi,
-			LocalTime homa, String contactoNombres, String contactoTelefonos, String contactoEmail, String notas,
+	public Salida(
+			Long id, String clienteCodigo, String servicioCodigo, String numeroOrden, 
+			String canalCodigo, String terceroIdentificacion, String terceroSucursal, String terceroNombre, 
+			String ciudadCodigo, String direccion, String puntoCodigo, String puntoNombre, 
+			LocalDate femi, LocalDate fema, LocalTime homi, LocalTime homa, 
+			String contactoNombres, String contactoTelefonos, String contactoEmail, String notas,
 			String requiereTransporte, String autorizadoIdentificacion, String autorizadoNombres,
-			String requiereRecaudo, Integer valorRecaudar, String requiereAgendamiento, String productoCodigo,
-			String productoCodigoAlterno, String productoNombre, int cantidad, String bodegaOrigenCodigo,
-			String estadoInventarioOrigenCodigo, String bodegaDestinoCodigo, String estadoInventarioDestinoCodigo,
-			BigDecimal valorUnitarioDeclarado, BigDecimal valorVentaLinea, String lote, String predistribucionCrossdock,
-			String predistribucionEvento, String prefijoOrden, String numeroOrdenSinPrefijo, LocalDate fechaOrden,
-			String documentoCliente, LocalDate fechaDocumentoCliente, 
-			Long idCliente, Long idServicio, 
-			Long idCanal, Long idTercero, 
-			Long idPunto, Long idCiudad, 
+			String requiereRecaudo, Integer valorRecaudar, 
+			String requiereAgendamiento, 
+			String productoCodigo, String productoNombre, String unidadCodigo, int cantidad, 
+			String bodegaOrigenCodigo, String estadoInventarioOrigenCodigo, 
+			String bodegaDestinoCodigo, String estadoInventarioDestinoCodigo,
+			BigDecimal valorUnitarioDeclarado, 
+			String lote, String predistribucionCrossdock, String predistribucionEvento, 
+			String prefijoOrden, String numeroOrdenSinPrefijo, 
+			LocalDate fechaOrden, String documentoCliente, LocalDate fechaDocumentoCliente, 
+			Long idCliente, 
+			Long idServicio, 
+			Long idCanal, 
+			Long idTercero, 
+			Long idPunto, 
+			Long idCiudad, 
+			Long idProducto,
+			Long idUnidad,
 			Long idBodegaOrigen, String idEstadoInventarioOrigen,
 			Long idBodegaDestino, String idEstadoInventarioDestino,
 			Long idArchivo, EstadoRegistroType estadoRegistro, int numeroLinea, String linea, 
 			LocalDateTime fechaCreacion, String usuarioCreacion, LocalDateTime fechaActualizacion,
 			String usuarioActualizacion) {
 		super(idArchivo, estadoRegistro, numeroLinea, linea, fechaCreacion, usuarioCreacion, fechaActualizacion, usuarioActualizacion);
+		// @formatter:on
 		this.id = id;
 		this.clienteCodigo = clienteCodigo;
 		this.servicioCodigo = servicioCodigo;
@@ -300,16 +312,18 @@ public class Salida extends Registro {
 		this.requiereRecaudo = requiereRecaudo;
 		this.valorRecaudar = valorRecaudar;
 		this.requiereAgendamiento = requiereAgendamiento;
+		
 		this.productoCodigo = productoCodigo;
-		this.productoCodigoAlterno = productoCodigoAlterno;
 		this.productoNombre = productoNombre;
+		this.unidadCodigo = unidadCodigo;
 		this.cantidad = cantidad;
+		
 		this.bodegaOrigenCodigo = bodegaOrigenCodigo;
 		this.estadoInventarioOrigenCodigo = estadoInventarioOrigenCodigo;
 		this.bodegaDestinoCodigo = bodegaDestinoCodigo;
 		this.estadoInventarioDestinoCodigo = estadoInventarioDestinoCodigo;
 		this.valorUnitarioDeclarado = valorUnitarioDeclarado;
-		this.valorVentaLinea = valorVentaLinea;
+		
 		this.lote = lote;
 		this.predistribucionCrossdock = predistribucionCrossdock;
 		this.predistribucionEvento = predistribucionEvento;
@@ -324,6 +338,8 @@ public class Salida extends Registro {
 		this.idTercero = idTercero;
 		this.idPunto = idPunto;
 		this.idCiudad = idCiudad;
+		this.idProducto = idProducto;
+		this.idUnidad = idUnidad;
 		this.idBodegaOrigen = idBodegaOrigen;
 		this.idEstadoInventarioOrigen = idEstadoInventarioOrigen;
 		this.idBodegaDestino = idBodegaDestino;

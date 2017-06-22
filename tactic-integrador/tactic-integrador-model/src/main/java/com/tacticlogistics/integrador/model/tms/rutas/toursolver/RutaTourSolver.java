@@ -34,13 +34,12 @@ public class RutaTourSolver extends Registro {
 	public static final String CLIENTE_CODIGO = "CLIENTE_CODIGO";
 	public static final String ID_ORDEN = "ID_ORDEN";
 	public static final String PLACA = "PLACA";
-	public static final String SECUENCIA = "SECUENCIA";
 	public static final String FECHA_ESTIMADA_ENTREGA = "FECHA_ESTIMADA_ENTREGA";
 	public static final String HORA_ESTIMADA_ENTREGA = "HORA_ESTIMADA_ENTREGA";
+	public static final String PARTICULARIDADES = "PARTICULARIDADES";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_ruta_toursolver")
 	private Long id;
 
 	@Column(length = 50, nullable = false)
@@ -53,8 +52,6 @@ public class RutaTourSolver extends Registro {
 	@NotNull
 	private String placa;
 
-	private int secuencia;
-
 	@Column(nullable = false)
 	@NotNull
 	private LocalDate fechaEstimadaEntrega;
@@ -63,9 +60,13 @@ public class RutaTourSolver extends Registro {
 	@NotNull
 	private LocalTime horaEstimadaEntrega;
 
+	@Column(length = 50, nullable = false)
+	@NotNull
+	private String particularidades;
+
 	@Builder
-	public RutaTourSolver(Long id, String clienteCodigo, long idOrden, String placa, int secuencia,
-			LocalDate fechaEstimadaEntrega, LocalTime horaEstimadaEntrega,
+	public RutaTourSolver(Long id, String clienteCodigo, long idOrden, String placa, 
+			LocalDate fechaEstimadaEntrega, LocalTime horaEstimadaEntrega, String particularidades,
 			Long idArchivo, EstadoRegistroType estadoRegistro, int numeroLinea, String linea, 
 			LocalDateTime fechaCreacion, String usuarioCreacion, 
 			LocalDateTime fechaActualizacion, String usuarioActualizacion) {
@@ -74,8 +75,8 @@ public class RutaTourSolver extends Registro {
 		this.clienteCodigo = clienteCodigo;
 		this.idOrden = idOrden;
 		this.placa = placa;
-		this.secuencia = secuencia;
 		this.fechaEstimadaEntrega = fechaEstimadaEntrega;
 		this.horaEstimadaEntrega = horaEstimadaEntrega;
+		this.particularidades = particularidades;
 	}
 }

@@ -66,7 +66,6 @@ public class ProntoFormProductoMedida extends Registro {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_pf_producto_medida")
 	private Long id;
 
 	@Column(length = 50, nullable = false)
@@ -94,7 +93,7 @@ public class ProntoFormProductoMedida extends Registro {
 	@Column(length = 50, nullable = false)
 	@NotEmpty
 	private String unidadCodigo1;
-	private int factorConversion1;
+	private Integer factorConversion1;
 
 	@Column(nullable = false)
 	@NotNull
@@ -145,7 +144,7 @@ public class ProntoFormProductoMedida extends Registro {
 	@Builder
 	public ProntoFormProductoMedida(Long id, String clienteCodigo, String productoCodigo, String productoNombre,
 			String bodegaCodigo, String huellaCodigo, int caseLevel, 
-			String unidadCodigo1, int factorConversion1,
+			String unidadCodigo1, Integer factorConversion1,
 			BigDecimal largo1, BigDecimal ancho1, BigDecimal alto1, BigDecimal peso1, BigDecimal volumen1,
 			String unidadCodigo2, Integer factorConversion2, 
 			BigDecimal largo2, BigDecimal ancho2, BigDecimal alto2, BigDecimal peso2, BigDecimal volumen2, 

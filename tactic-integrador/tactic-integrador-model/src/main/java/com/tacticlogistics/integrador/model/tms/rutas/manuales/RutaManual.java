@@ -31,14 +31,12 @@ public class RutaManual extends Registro {
 	public static final String CLIENTE_IDENTIFICACION = "CLIENTE_IDENTIFICACION";
 	public static final String NUMERO_ORDEN = "NUMERO_ORDEN";
 	public static final String PLACA = "PLACA";
-	public static final String SECUENCIA = "SECUENCIA";
 	public static final String CX = "CX";
 	public static final String CY = "CY";
 	public static final String FECHA_HORA_ESTIMADA_ENTREGA = "FECHA_HORA_ESTIMADA_ENTREGA";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_ruta_manual")
 	private Long id;
 	
 	@Column(length = 20, nullable = false)
@@ -53,8 +51,6 @@ public class RutaManual extends Registro {
 	@NotNull
 	private String placa;
 
-	private int secuencia;
-	
 	@Column(nullable = false)
 	@NotNull
     private LocalDateTime fechaHoraEstimadaEntrega;
@@ -71,7 +67,7 @@ public class RutaManual extends Registro {
 
 	@Builder
 	public RutaManual(
-			Long id, String clienteIdentificacion, String numeroOrden, String placa, int secuencia,
+			Long id, String clienteIdentificacion, String numeroOrden, String placa, 
 			LocalDateTime fechaHoraEstimadaEntrega, BigDecimal cx, BigDecimal cy, 
 			Long idOrden,
 			Long idArchivo, EstadoRegistroType estadoRegistro, int numeroLinea, String linea, 
@@ -82,7 +78,6 @@ public class RutaManual extends Registro {
 		this.clienteIdentificacion = clienteIdentificacion;
 		this.numeroOrden = numeroOrden;
 		this.placa = placa;
-		this.secuencia = secuencia;
 		this.fechaHoraEstimadaEntrega = fechaHoraEstimadaEntrega;
 		this.cx = cx;
 		this.cy = cy;

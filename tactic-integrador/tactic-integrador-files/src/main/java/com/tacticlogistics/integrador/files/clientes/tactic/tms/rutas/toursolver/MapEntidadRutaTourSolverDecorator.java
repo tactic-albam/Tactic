@@ -33,7 +33,6 @@ public class MapEntidadRutaTourSolverDecorator extends MapEntidadDecorator<RutaT
 		val datos = registro.getDatos();
 		Assert.notEmpty(datos);
 
-		int secuencia = getInteger(tipoArchivo, datos, RutaTourSolver.SECUENCIA);
 		long idOrden = getInteger(tipoArchivo, datos, RutaTourSolver.ID_ORDEN);
 		LocalDate fecha = getLocalDate(tipoArchivo, datos, RutaTourSolver.FECHA_ESTIMADA_ENTREGA);
 		LocalTime hora = getLocalTimeFromBigDecimal(tipoArchivo, datos, RutaTourSolver.HORA_ESTIMADA_ENTREGA);
@@ -52,9 +51,9 @@ public class MapEntidadRutaTourSolverDecorator extends MapEntidadDecorator<RutaT
 				.clienteCodigo(datos.get(RutaTourSolver.CLIENTE_CODIGO))
 				.idOrden(idOrden)
 				.placa(datos.get(RutaTourSolver.PLACA))
-				.secuencia(secuencia)
 				.fechaEstimadaEntrega(fecha)
 				.horaEstimadaEntrega(hora)
+				.particularidades(datos.get(RutaTourSolver.PARTICULARIDADES))
 				.build();
 		// @formatter:on
 

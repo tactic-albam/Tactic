@@ -1,15 +1,11 @@
 package com.tacticlogistics.integrador.files.clientes.tactic.tms.rutas.toursolver;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.regex.Pattern;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 import com.tacticlogistics.ClienteCodigoType;
-import com.tacticlogistics.integrador.files.handlers.ArchivoHandler;
+import com.tacticlogistics.integrador.files.handlers.ArchivoExcelHandler;
 import com.tacticlogistics.integrador.files.handlers.decorators.CamposSplitterDecorator;
 import com.tacticlogistics.integrador.files.handlers.decorators.CheckArchivoVacioDecorator;
 import com.tacticlogistics.integrador.files.handlers.decorators.CheckNumeroDeColumnasDecorator;
@@ -18,19 +14,16 @@ import com.tacticlogistics.integrador.files.handlers.decorators.CheckRestriccion
 import com.tacticlogistics.integrador.files.handlers.decorators.Decorator;
 import com.tacticlogistics.integrador.files.handlers.decorators.LineasSplitterDecorator;
 import com.tacticlogistics.integrador.files.handlers.decorators.MayusculasDecorator;
-import com.tacticlogistics.integrador.files.handlers.readers.ExcelWorkSheetReaderBeta;
-import com.tacticlogistics.integrador.files.handlers.readers.Reader;
 import com.tacticlogistics.integrador.model.tms.rutas.toursolver.RutaTourSolver;
 import com.tacticlogistics.integrador.model.tms.rutas.toursolver.RutaTourSolverRepository;
 
 @Component
-public class RutasTourSolverArchivoHandler extends ArchivoHandler<RutaTourSolver,Long> {
-	private static final String CODIGO_TIPO_ARCHIVO = "RUTAS_TOURSOLVER";
-
+public class RutasTourSolverArchivoHandler extends ArchivoExcelHandler<RutaTourSolver,Long> {
 	private static final String WORKSHEET_NAME = "Informe";
 
-	@Autowired
-	private ExcelWorkSheetReaderBeta reader;
+	private static final String CODIGO_TIPO_ARCHIVO = "RUTAS_TOURSOLVER";
+
+	private static final String SUBDIRECTORIO_RELATIVO = "TMS\\RUTAS\\TOURSOLVER";
 
 	@Autowired
 	private RutaTourSolverRepository repository;
@@ -39,35 +32,33 @@ public class RutasTourSolverArchivoHandler extends ArchivoHandler<RutaTourSolver
 	//
 	// ----------------------------------------------------------------------------------------------------------------
 	@Override
-	protected Reader getReader() {
-		if (this.reader.getWorkSheetName() == null) {
-			this.reader.setWorkSheetName(WORKSHEET_NAME);
-		}
-		return reader;
+	protected String getWorkSheetName() {
+		return WORKSHEET_NAME;
 	}
 
+	@Override
+	protected String getClienteCodigo() {
+		return ClienteCodigoType.TACTIC.toString();
+	}
+	
 	@Override
 	protected String getCodigoTipoArchivo() {
 		return CODIGO_TIPO_ARCHIVO;
 	}
 
 	@Override
-	protected Path getCliente() {
-		Path result = Paths.get(ClienteCodigoType.TACTIC.toString());
-		return result;
+	protected String getDirectorioRelativo() {
+		return SUBDIRECTORIO_RELATIVO;
 	}
 
 	@Override
-	protected Path getSubDirectorioRelativo() {
-		Path result = Paths.get("TMS\\RUTAS\\TOURSOLVER");
-		return result;
+	protected JpaRepository<RutaTourSolver, Long> getRepository() {
+		return repository;
 	}
 
-	@Override
-	protected Pattern getFileNamePattern() {
-		return PATTERN_XLS;
-	}
-	
+	// ----------------------------------------------------------------------------------------------------------------
+	//
+	// ----------------------------------------------------------------------------------------------------------------
 	@Override
 	protected Decorator<RutaTourSolver> getTransformador() {
 		// @formatter:off
@@ -77,14 +68,9 @@ public class RutasTourSolverArchivoHandler extends ArchivoHandler<RutaTourSolver
 						new FiltrarRutasTourSolverDecorator(
 							new CamposSplitterDecorator<RutaTourSolver>(
 								new CheckNumeroDeColumnasDecorator<RutaTourSolver>(
-										new CheckArchivoVacioDecorator<RutaTourSolver>(
-											new LineasSplitterDecorator<RutaTourSolver>(
-													new MayusculasDecorator<RutaTourSolver>()))))))));
+									new CheckArchivoVacioDecorator<RutaTourSolver>(
+										new LineasSplitterDecorator<RutaTourSolver>(
+												new MayusculasDecorator<RutaTourSolver>()))))))));
 		// @formatter:on
-	}
-
-	@Override
-	protected JpaRepository<RutaTourSolver, Long> getRepository() {
-		return repository;
 	}
 }

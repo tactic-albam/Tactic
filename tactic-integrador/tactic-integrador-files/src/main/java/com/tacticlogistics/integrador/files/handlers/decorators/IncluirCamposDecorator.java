@@ -30,18 +30,36 @@ public class IncluirCamposDecorator<T> extends Decorator<T> {
 		val tipoArchivo = result.getTipoArchivo();
 		val campos = tipoArchivo.getCamposIncluidos();
 
-		Map<String, String> map = new HashMap<>();
+		Map<String, String> constantes = new HashMap<>();
+		Map<String, String> variables = new HashMap<>();
+		
 		for (Campo campo : campos) {
 			String valor = campo.getValorPredeterminado();
+			
 			if (campo.isTruncarCaracteres()) {
 				valor = StringUtils.left(valor, campo.getNumeroCaracteres());
 			}
-			map.put(campo.getCodigo(), valor);
+			
+			if(StringUtils.startsWith(valor, "${") && StringUtils.endsWith(valor, "}")){
+				val key = StringUtils.mid(valor, 2, valor.length()-3);
+				variables.put(campo.getCodigo(), key);
+			}else{
+				constantes.put(campo.getCodigo(), valor);
+			}
 		}
 
 		for (val registro : registros) {
-			registro.getDatos().putAll(map);
-			registro.getOriginales().putAll(map);
+			registro.getDatos().putAll(constantes);
+			registro.getOriginales().putAll(constantes);
+		}
+
+		for (String campo : variables.keySet()) {
+			String key = variables.get(campo);
+			for (val registro : registros) {
+				String valor = registro.getDatos().get(key);
+				registro.getDatos().put(campo, valor);
+				registro.getOriginales().put(campo, valor);
+			}
 		}
 
 		return result;

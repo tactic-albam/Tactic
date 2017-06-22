@@ -38,7 +38,7 @@ public abstract class MapEntidadDecorator<T> extends Decorator<T> {
 				registro.setEntidad(map(result, registro));
 			} catch (RuntimeException e) {
 				error = true;
-				registro.getErrores().add(e.getMessage() == null?e.getClass().getName():e.getMessage());
+				registro.getErrores().add(e.getMessage() == null ? e.getClass().getName() : e.getMessage());
 			}
 		}
 
@@ -53,89 +53,96 @@ public abstract class MapEntidadDecorator<T> extends Decorator<T> {
 	protected abstract T map(ArchivoDTO<T> archivoDTO, RegistroDTO<T> registro);
 
 	protected Integer getInteger(TipoArchivo tipoArchivo, final Map<String, String> datos, String campoCodigo) {
-		val campo = tipoArchivo.getCampoPorCodigo(campoCodigo);
-		Assert.isTrue(campo.isPresent());
-		String valor = StringUtils.defaultString(datos.get(campo.get().getCodigo()));
-
 		Integer result = null;
-		if (!valor.isEmpty()) {
-			result = Integer.parseInt(valor);
+		val campo = tipoArchivo.getCampoPorCodigo(campoCodigo);
+		if (campo.isPresent()) {
+			String valor = StringUtils.defaultString(datos.get(campo.get().getCodigo()));
+
+			if (!valor.isEmpty()) {
+				result = Integer.parseInt(valor);
+			}
 		}
 		return result;
 	}
 
 	protected Long getLong(TipoArchivo tipoArchivo, final Map<String, String> datos, String campoCodigo) {
-		val campo = tipoArchivo.getCampoPorCodigo(campoCodigo);
-		Assert.isTrue(campo.isPresent());
-		String valor = StringUtils.defaultString(datos.get(campo.get().getCodigo()));
-
 		Long result = null;
-		if (!valor.isEmpty()) {
-			result = Long.parseLong(valor);
+		val campo = tipoArchivo.getCampoPorCodigo(campoCodigo);
+		if (campo.isPresent()) {
+			String valor = StringUtils.defaultString(datos.get(campo.get().getCodigo()));
+
+			if (!valor.isEmpty()) {
+				result = Long.parseLong(valor);
+			}
 		}
 		return result;
 	}
 
 	protected BigDecimal getBigDecimal(TipoArchivo tipoArchivo, final Map<String, String> datos, String campoCodigo) {
+		BigDecimal result = null;
 		val campo = tipoArchivo.getCampoPorCodigo(campoCodigo);
-		Assert.isTrue(campo.isPresent());
-		String valor = StringUtils.defaultString(datos.get(campo.get().getCodigo()));
+		if (campo.isPresent()) {
+			String valor = StringUtils.defaultString(datos.get(campo.get().getCodigo()));
 
-		try {
-			BigDecimal result = null;
-			if (!valor.isEmpty()) {
-				result = (BigDecimal) campo.get().getDecimalFormat().parse(valor);
+			try {
+				if (!valor.isEmpty()) {
+					result = (BigDecimal) campo.get().getDecimalFormat().parse(valor);
+				}
+			} catch (ParseException e) {
+				String mensaje = "Ocurrio un error al intentar hacer la conversión del dato %s";
+				mensaje = String.format(mensaje, valor);
+				throw new RuntimeException(mensaje, e);
 			}
-			return result;
-		} catch (ParseException e) {
-			String mensaje = "Ocurrio un error al intentar hacer la conversión del dato %s";
-			mensaje = String.format(mensaje, valor);
-			throw new RuntimeException(mensaje, e);
 		}
+		return result;
 	}
 
 	protected LocalDateTime getLocalDateTime(TipoArchivo tipoArchivo, final Map<String, String> datos,
 			String campoCodigo) {
-		val campo = tipoArchivo.getCampoPorCodigo(campoCodigo);
-		Assert.isTrue(campo.isPresent());
-		String valor = StringUtils.defaultString(datos.get(campo.get().getCodigo()));
-
 		LocalDateTime result = null;
-		if (!valor.isEmpty()) {
-			result = LocalDateTime.parse(valor, campo.get().getDateTimeFormatter());
+		val campo = tipoArchivo.getCampoPorCodigo(campoCodigo);
+		if (campo.isPresent()) {
+			String valor = StringUtils.defaultString(datos.get(campo.get().getCodigo()));
+
+			if (!valor.isEmpty()) {
+				result = LocalDateTime.parse(valor, campo.get().getDateTimeFormatter());
+			}
 		}
 		return result;
 	}
 
 	protected LocalDate getLocalDate(TipoArchivo tipoArchivo, final Map<String, String> datos, String campoCodigo) {
-		val campo = tipoArchivo.getCampoPorCodigo(campoCodigo);
-		Assert.isTrue(campo.isPresent());
-		String valor = StringUtils.defaultString(datos.get(campo.get().getCodigo()));
-
 		LocalDate result = null;
-		if (!valor.isEmpty()) {
-			result = LocalDate.parse(valor, campo.get().getDateTimeFormatter());
+		val campo = tipoArchivo.getCampoPorCodigo(campoCodigo);
+		if (campo.isPresent()) {
+
+			String valor = StringUtils.defaultString(datos.get(campo.get().getCodigo()));
+
+			if (!valor.isEmpty()) {
+				result = LocalDate.parse(valor, campo.get().getDateTimeFormatter());
+			}
 		}
 		return result;
 	}
 
 	protected LocalTime getLocalTime(TipoArchivo tipoArchivo, final Map<String, String> datos, String campoCodigo) {
-		val campo = tipoArchivo.getCampoPorCodigo(campoCodigo);
-		Assert.isTrue(campo.isPresent());
-		String valor = StringUtils.defaultString(datos.get(campo.get().getCodigo()));
-
 		LocalTime result = null;
-		if (!valor.isEmpty()) {
-			result = LocalTime.parse(valor, campo.get().getDateTimeFormatter());
+		val campo = tipoArchivo.getCampoPorCodigo(campoCodigo);
+		if (campo.isPresent()) {
+			String valor = StringUtils.defaultString(datos.get(campo.get().getCodigo()));
+
+			if (!valor.isEmpty()) {
+				result = LocalTime.parse(valor, campo.get().getDateTimeFormatter());
+			}
 		}
 		return result;
 	}
 
 	protected LocalTime getLocalTimeFromBigDecimal(TipoArchivo tipoArchivo, final Map<String, String> datos,
 			String campoCodigo) {
+		LocalTime result = null;
 		BigDecimal valor = this.getBigDecimal(tipoArchivo, datos, campoCodigo);
 
-		LocalTime result = null;
 		if (valor != null) {
 			Float floatValue = valor.floatValue();
 			if (floatValue >= 1.0) {

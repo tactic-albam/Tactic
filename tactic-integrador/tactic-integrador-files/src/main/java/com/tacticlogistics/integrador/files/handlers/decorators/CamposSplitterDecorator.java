@@ -42,7 +42,7 @@ public class CamposSplitterDecorator<T> extends Decorator<T> {
 			val registro = registros.get(i);
 			registro.getDatos().clear();
 			registro.getOriginales().clear();
-
+			
 			try {
 				val map = getDatos(campos, mapping, datos);
 				registro.getDatos().putAll(map);

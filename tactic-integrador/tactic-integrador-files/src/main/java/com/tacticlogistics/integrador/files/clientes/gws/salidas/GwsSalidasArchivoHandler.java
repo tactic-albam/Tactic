@@ -1,16 +1,12 @@
 package com.tacticlogistics.integrador.files.clientes.gws.salidas;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.regex.Pattern;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 import com.tacticlogistics.ClienteCodigoType;
-import com.tacticlogistics.integrador.files.clientes.tactic.oms.MapEntidadSalidaDecorator;
-import com.tacticlogistics.integrador.files.handlers.ArchivoHandler;
+import com.tacticlogistics.integrador.files.clientes.tactic.oms.salidas.MapEntidadSalidaDecorator;
+import com.tacticlogistics.integrador.files.handlers.ArchivoPlanoHandler;
 import com.tacticlogistics.integrador.files.handlers.decorators.CamposSplitterDecorator;
 import com.tacticlogistics.integrador.files.handlers.decorators.CheckArchivoVacioDecorator;
 import com.tacticlogistics.integrador.files.handlers.decorators.CheckNumeroDeColumnasDecorator;
@@ -22,17 +18,14 @@ import com.tacticlogistics.integrador.files.handlers.decorators.IncluirEncabezad
 import com.tacticlogistics.integrador.files.handlers.decorators.LineasSplitterDecorator;
 import com.tacticlogistics.integrador.files.handlers.decorators.MayusculasDecorator;
 import com.tacticlogistics.integrador.files.handlers.decorators.NormalizarSeparadoresDeRegistroDecorator;
-import com.tacticlogistics.integrador.files.handlers.readers.CharsetDetectorFileReaderBeta;
-import com.tacticlogistics.integrador.files.handlers.readers.Reader;
 import com.tacticlogistics.integrador.model.oms.Salida;
 import com.tacticlogistics.integrador.model.oms.SalidaRepository;
 
 @Component
-public class GwsSalidasArchivoHandler extends ArchivoHandler<Salida,Long> {
+public class GwsSalidasArchivoHandler extends ArchivoPlanoHandler<Salida,Long> {
 	private static final String CODIGO_TIPO_ARCHIVO = "GWS_SALIDAS";
 
-	@Autowired
-	private CharsetDetectorFileReaderBeta reader;
+	private static final String SUBDIRECTORIO_RELATIVO = "ORDENES\\VENTAS";
 
 	@Autowired
 	private SalidaRepository repository;
@@ -41,32 +34,25 @@ public class GwsSalidasArchivoHandler extends ArchivoHandler<Salida,Long> {
 	//
 	// ----------------------------------------------------------------------------------------------------------------
 	@Override
-	protected Reader getReader() {
-		return reader;
+	protected String getClienteCodigo() {
+		return ClienteCodigoType.GWS.toString();
 	}
-
+	
 	@Override
 	protected String getCodigoTipoArchivo() {
 		return CODIGO_TIPO_ARCHIVO;
 	}
-
-	@Override
-	protected Path getCliente() {
-		Path result = Paths.get(ClienteCodigoType.GWS.toString());
-		return result;
-	}
-
-	@Override
-	protected Path getSubDirectorioRelativo() {
-		Path result = Paths.get("ORDENES\\VENTAS");
-		return result;
-	}
-
-	@Override
-	protected Pattern getFileNamePattern() {
-		return PATTERN_TXT;
-	}
 	
+	@Override
+	protected String getDirectorioRelativo() {
+		return SUBDIRECTORIO_RELATIVO;
+	}
+
+	@Override
+	protected JpaRepository<Salida, Long> getRepository() {
+		return repository;
+	}
+
 	@Override
 	protected Decorator<Salida> getTransformador() {
 		// @formatter:off
@@ -84,10 +70,5 @@ public class GwsSalidasArchivoHandler extends ArchivoHandler<Salida,Long> {
 														new MayusculasDecorator<Salida>(
 				))))))))))));
 		// @formatter:on
-	}
-
-	@Override
-	protected JpaRepository<Salida, Long> getRepository() {
-		return repository;
 	}
 }

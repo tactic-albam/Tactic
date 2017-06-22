@@ -23,12 +23,12 @@ public class DummyArchivoHandler extends ArchivoHandler<Object,Long> {
 	}
 
 	@Override
-	protected Path getCliente() {
+	protected Path getPathCliente() {
 		return null;
 	}
 
 	@Override
-	protected Path getSubDirectorioRelativo() {
+	protected Path getPathDirectorioRelativo() {
 		return null;
 	}
 
@@ -44,6 +44,16 @@ public class DummyArchivoHandler extends ArchivoHandler<Object,Long> {
 
 	@Override
 	protected JpaRepository<Object, Long> getRepository() {
+		return null;
+	}
+
+	@Override
+	protected String getClienteCodigo() {
+		return null;
+	}
+
+	@Override
+	protected String getDirectorioRelativo() {
 		return null;
 	}
 

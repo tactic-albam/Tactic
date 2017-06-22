@@ -1,14 +1,11 @@
 package com.tacticlogistics.integrador.files.clientes.heinz.cadenas;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 import com.tacticlogistics.ClienteCodigoType;
-import com.tacticlogistics.integrador.files.handlers.ArchivoHandler;
+import com.tacticlogistics.integrador.files.handlers.ArchivoExcelHandler;
 import com.tacticlogistics.integrador.files.handlers.decorators.CamposSplitterDecorator;
 import com.tacticlogistics.integrador.files.handlers.decorators.CheckArchivoVacioDecorator;
 import com.tacticlogistics.integrador.files.handlers.decorators.CheckNumeroDeColumnasDecorator;
@@ -17,18 +14,15 @@ import com.tacticlogistics.integrador.files.handlers.decorators.IncluirCamposDec
 import com.tacticlogistics.integrador.files.handlers.decorators.LineasSplitterDecorator;
 import com.tacticlogistics.integrador.files.handlers.decorators.MayusculasDecorator;
 import com.tacticlogistics.integrador.files.handlers.decorators.NormalizarSeparadoresDeRegistroDecorator;
-import com.tacticlogistics.integrador.files.handlers.readers.ExcelWorkSheetReaderDelta;
-import com.tacticlogistics.integrador.files.handlers.readers.Reader;
 import com.tacticlogistics.integrador.model.oms.Salida;
 import com.tacticlogistics.integrador.model.oms.SalidaRepository;
 
 @Component
-public abstract class SalidasCadenasArchivoHandler extends ArchivoHandler<Salida,Long> {
+public abstract class SalidasCadenasArchivoHandler extends ArchivoExcelHandler<Salida,Long> {
 	
 	private static final String WORKSHEET_NAME = "0";
-
-	@Autowired
-	private ExcelWorkSheetReaderDelta reader;
+	
+	private static final String SUBDIRECTORIO_RELATIVO = "CADENAS";
 
 	@Autowired
 	private SalidaRepository repository;
@@ -37,23 +31,26 @@ public abstract class SalidasCadenasArchivoHandler extends ArchivoHandler<Salida
 	//
 	// ----------------------------------------------------------------------------------------------------------------
 	@Override
-	protected Reader getReader() {
-		if (this.reader.getWorkSheetName() == null) {
-			this.reader.setWorkSheetName(WORKSHEET_NAME);
-		}
-		return reader;
+	protected String getWorkSheetName() {
+		return WORKSHEET_NAME;
 	}
 
 	@Override
-	protected Path getCliente() {
-		Path result = Paths.get(ClienteCodigoType.HEINZ.toString());
-		return result;
+	protected String getClienteCodigo() {
+		return ClienteCodigoType.HEINZ.toString();
 	}
 
 	@Override
-	protected Path getSubDirectorioRelativo() {
-		Path result = Paths.get("CADENAS");
-		return result;
+	protected String getDirectorioRelativo() {
+		return SUBDIRECTORIO_RELATIVO;
+	}
+
+	// ----------------------------------------------------------------------------------------------------------------
+	//
+	// ----------------------------------------------------------------------------------------------------------------
+	@Override
+	protected JpaRepository<Salida, Long> getRepository() {
+		return repository;
 	}
 
 	@Override
@@ -68,10 +65,5 @@ public abstract class SalidasCadenasArchivoHandler extends ArchivoHandler<Salida
 									new MayusculasDecorator<Salida>(
 		)))))));
 		// @formatter:on
-	}
-
-	@Override
-	protected JpaRepository<Salida, Long> getRepository() {
-		return repository;
 	}
 }

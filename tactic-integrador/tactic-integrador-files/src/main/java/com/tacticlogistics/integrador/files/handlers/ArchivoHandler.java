@@ -71,11 +71,21 @@ public abstract class ArchivoHandler<T, ID extends Serializable> extends Abstrac
 	abstract protected Reader getReader();
 
 	abstract protected String getCodigoTipoArchivo();
+	
+	abstract protected String getClienteCodigo();
 
-	abstract protected Path getCliente();
+	protected Path getPathCliente() {
+		Path result = Paths.get(getClienteCodigo());
+		return result;
+	}
 
-	abstract protected Path getSubDirectorioRelativo();
+	abstract protected String getDirectorioRelativo();
 
+	protected Path getPathDirectorioRelativo() {
+		Path result = Paths.get(getDirectorioRelativo());
+		return result;
+	}
+	
 	abstract protected Pattern getFileNamePattern();
 
 	abstract protected Decorator<T> getTransformador();
@@ -93,7 +103,7 @@ public abstract class ArchivoHandler<T, ID extends Serializable> extends Abstrac
 		if (this.getReader() == null) {
 			return false;
 		}
-		if (this.getSubDirectorioRelativo() == null) {
+		if (this.getPathDirectorioRelativo() == null) {
 			return false;
 		}
 		if (this.getFileNamePattern() == null) {
@@ -113,11 +123,11 @@ public abstract class ArchivoHandler<T, ID extends Serializable> extends Abstrac
 	}
 
 	protected boolean checkCliente(ArchivoRequestDTO request) {
-		return this.getCliente().equals(request.getCliente());
+		return this.getPathCliente().equals(request.getCliente());
 	}
 
 	protected boolean checkSubDirectorioRelativo(ArchivoRequestDTO request) {
-		return this.getSubDirectorioRelativo().equals(request.getSubDirectorioRelativo());
+		return this.getPathDirectorioRelativo().equals(request.getSubDirectorioRelativo());
 	}
 
 	protected boolean checkNombreArchivo(ArchivoRequestDTO request) {
@@ -251,7 +261,7 @@ public abstract class ArchivoHandler<T, ID extends Serializable> extends Abstrac
 				.getRoot()
 				.getParent()
 				.resolve(subDirectorioDestino)
-				.resolve(this.getSubDirectorioRelativo())
+				.resolve(this.getPathDirectorioRelativo())
 				.resolve(this.getSubdirectorioBackup(request, fechaActualDelSistema))
 				.resolve(this.getNombreArchivoBackup(request, fechaActualDelSistema));
 		// @formatter:on

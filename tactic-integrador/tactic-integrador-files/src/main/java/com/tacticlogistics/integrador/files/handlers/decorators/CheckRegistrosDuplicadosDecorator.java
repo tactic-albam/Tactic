@@ -42,7 +42,7 @@ public class CheckRegistrosDuplicadosDecorator<T> extends Decorator<T> {
 
 			if (duplicados.size() > 1) {
 				error = true;
-				String mensaje = String.format("error llave duplicada: Los valors de los siguientes campos vienen duplicados en el archivo: %s", StringUtils.collectionToCommaDelimitedString(campos)); 
+				String mensaje = String.format("error llave duplicada: Los valores de los siguientes campos vienen duplicados en el archivo: %s", StringUtils.collectionToCommaDelimitedString(campos)); 
 				for (RegistroDTO<T> registro: duplicados) {
 					registro.getErrores().add(mensaje);
 				}

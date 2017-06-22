@@ -9,4 +9,9 @@ public class DecimalMaxChecker extends MaxChecker<BigDecimal> {
 	protected BigDecimal getValorLimite(Campo campo) {
 		return campo.getValorDecimalMax();
 	}
+	
+	@Override
+	public String getMensajeDeError() {
+		return "%s:El valor %f del campo %s debe ser menor o igual que %s.";
+	}
 }

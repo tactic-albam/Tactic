@@ -34,7 +34,6 @@ public class MapEntidadRutaManualDecorator extends MapEntidadDecorator<RutaManua
 		val datos = registro.getDatos();
 		Assert.notEmpty(datos);
 
-		int secuencia = getInteger(tipoArchivo, datos, RutaManual.SECUENCIA);
 		LocalDateTime fechaHora = getLocalDateTime(tipoArchivo, datos, RutaManual.FECHA_HORA_ESTIMADA_ENTREGA);
 		BigDecimal cx = getBigDecimal(tipoArchivo, datos, RutaManual.CX);
 		BigDecimal cy = getBigDecimal(tipoArchivo, datos, RutaManual.CY);
@@ -53,7 +52,6 @@ public class MapEntidadRutaManualDecorator extends MapEntidadDecorator<RutaManua
 				.clienteIdentificacion(datos.get(RutaManual.CLIENTE_IDENTIFICACION))
 				.numeroOrden(datos.get(RutaManual.NUMERO_ORDEN))
 				.placa(datos.get(RutaTourSolver.PLACA))
-				.secuencia(secuencia)
 				.fechaHoraEstimadaEntrega(fechaHora)
 				.cx(cx)
 				.cy(cy)

@@ -1,7 +1,5 @@
 package com.tacticlogistics.integrador.files.clientes.pernod.salidas;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 import com.tacticlogistics.ClienteCodigoType;
-import com.tacticlogistics.integrador.files.clientes.tactic.oms.MapEntidadSalidaDecorator;
+import com.tacticlogistics.integrador.files.clientes.tactic.oms.salidas.MapEntidadSalidaDecorator;
 import com.tacticlogistics.integrador.files.handlers.ArchivoHandler;
 import com.tacticlogistics.integrador.files.handlers.decorators.CamposSplitterDecorator;
 import com.tacticlogistics.integrador.files.handlers.decorators.CheckArchivoVacioDecorator;
@@ -31,6 +29,8 @@ import com.tacticlogistics.integrador.model.oms.SalidaRepository;
 public class PernodSalidasArchivoHandler extends ArchivoHandler<Salida,Long> {
 	private static final String CODIGO_TIPO_ARCHIVO = "PERNOD_SALIDAS";
 
+	private static final String SUBDIRECTORIO_RELATIVO = "OMS\\VENTAS";
+
 	@Autowired
 	private XMLFileReader reader;
 
@@ -46,27 +46,30 @@ public class PernodSalidasArchivoHandler extends ArchivoHandler<Salida,Long> {
 	}
 
 	@Override
+	protected String getClienteCodigo() {
+		return ClienteCodigoType.PERNOD.toString();
+	}
+
+	@Override
 	protected String getCodigoTipoArchivo() {
 		return CODIGO_TIPO_ARCHIVO;
 	}
 
 	@Override
-	protected Path getCliente() {
-		Path result = Paths.get(ClienteCodigoType.PERNOD.toString());
-		return result;
-	}
-
-	@Override
-	protected Path getSubDirectorioRelativo() {
-		Path result = Paths.get("ORDENES\\VENTAS");
-		return result;
+	protected String getDirectorioRelativo() {
+		return SUBDIRECTORIO_RELATIVO;
 	}
 
 	@Override
 	protected Pattern getFileNamePattern() {
 		return PATTERN_XML;
 	}
-	
+
+	@Override
+	protected JpaRepository<Salida, Long> getRepository() {
+		return repository;
+	}
+
 	@Override
 	protected Decorator<Salida> getTransformador() {
 		// @formatter:off
@@ -82,10 +85,5 @@ public class PernodSalidasArchivoHandler extends ArchivoHandler<Salida,Long> {
 												new NormalizarSeparadoresDeRegistroDecorator<Salida>(
 													new MayusculasDecorator<Salida>()))))))))));
 		// @formatter:on
-	}
-
-	@Override
-	protected JpaRepository<Salida, Long> getRepository() {
-		return repository;
 	}
 }
