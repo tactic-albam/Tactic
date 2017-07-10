@@ -31,19 +31,12 @@ public class ExcelWorkSheetReaderGamma implements Reader {
 	public static final char NON_BREAKING_SPACE = 160;
 	@NonNull
 	private String workSheetName;
-	
+
 	@Override
 	public String read(Path archivo) throws IOException {
 		// http://stackoverflow.com/questions/4929646/how-to-get-an-excel-blank-cell-value-in-apache-poi
 		Workbook workbook = createWorkBook(archivo);
-		Sheet sheet;
-
-		try {
-			int index = Integer.valueOf(this.getWorkSheetName());
-			sheet = workbook.getSheetAt(index);
-		} catch (NumberFormatException e) {
-			sheet = workbook.getSheet(this.getWorkSheetName());
-		}
+		Sheet sheet = getWorkSheet(workbook);
 
 		StringBuilder sb = new StringBuilder();
 
@@ -80,7 +73,7 @@ public class ExcelWorkSheetReaderGamma implements Reader {
 	}
 
 	private Workbook createWorkBook(Path archivo) throws FileNotFoundException, IOException {
-		Workbook workbook;
+		Workbook workbook = null;
 		InputStream in = new FileInputStream(archivo.toFile());
 		try {
 			workbook = WorkbookFactory.create(in);
@@ -88,7 +81,22 @@ public class ExcelWorkSheetReaderGamma implements Reader {
 			throw new RuntimeException(e1);
 		} catch (InvalidFormatException e1) {
 			throw new RuntimeException(e1);
+		} finally {
+			if (workbook == null) {
+				in.close();
+			}
 		}
 		return workbook;
+	}
+
+	private Sheet getWorkSheet(Workbook workbook) {
+		Sheet sheet;
+		try {
+			int index = Integer.valueOf(this.getWorkSheetName());
+			sheet = workbook.getSheetAt(index);
+		} catch (NumberFormatException e) {
+			sheet = workbook.getSheet(this.getWorkSheetName());
+		}
+		return sheet;
 	}
 }

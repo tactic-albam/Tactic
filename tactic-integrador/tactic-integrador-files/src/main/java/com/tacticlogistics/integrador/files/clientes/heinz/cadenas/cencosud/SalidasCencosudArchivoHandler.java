@@ -11,7 +11,7 @@ import com.tacticlogistics.integrador.files.handlers.decorators.CheckRestriccion
 import com.tacticlogistics.integrador.files.handlers.decorators.Decorator;
 import com.tacticlogistics.integrador.model.oms.Salida;
 
-@Component
+//@Component
 public class SalidasCencosudArchivoHandler extends SalidasCadenasArchivoHandler {
 
 	private static final String CODIGO_TIPO_ARCHIVO = "HEINZ_SALIDAS_CENCOSUD";

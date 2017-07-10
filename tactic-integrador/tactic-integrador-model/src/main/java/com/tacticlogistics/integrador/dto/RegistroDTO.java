@@ -19,6 +19,7 @@ import lombok.ToString;
 public class RegistroDTO<T> {
 	@Setter
 	private T entidad;
+	@Setter
 	@NonNull
 	private String linea;
 	private int numeroLinea;
