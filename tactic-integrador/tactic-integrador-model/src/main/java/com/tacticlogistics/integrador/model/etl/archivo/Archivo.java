@@ -21,8 +21,8 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
+import org.apache.commons.lang3.Validate;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.util.Assert;
 
 import com.tacticlogistics.integrador.dto.ErrorArchivoDTO;
 
@@ -173,8 +173,8 @@ public class Archivo {
 	}
 
 	private void actualizar(EstadoArchivoType estado, LocalDateTime fecha, List<ErrorArchivoDTO> errores) {
-		Assert.notNull(estado);
-		Assert.notNull(fecha);
+		Validate.notNull(estado);
+		Validate.notNull(fecha);
 
 		this.setFechaActualizacion(fecha);
 		this.setUsuarioActualizacion(SystemUtils.USER_NAME);

@@ -3,10 +3,10 @@ package com.tacticlogistics.integrador.files.handlers.decorators;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.Validate;
 
-import com.tacticlogistics.integrador.dto.ErrorArchivoDTO;
 import com.tacticlogistics.integrador.dto.ArchivoDTO;
+import com.tacticlogistics.integrador.dto.ErrorArchivoDTO;
 import com.tacticlogistics.integrador.dto.RegistroDTO;
 
 import lombok.Getter;
@@ -30,8 +30,8 @@ public class ETLRuntimeException extends RuntimeException {
 	}
 	
 	public static <T> void throwException(String message,ArchivoDTO<T> archivo){
-		Assert.notNull(archivo);
-		Assert.notEmpty(archivo.getRegistros());
+		Validate.notNull(archivo);
+		Validate.notEmpty(archivo.getRegistros());
 		
 		final List<ErrorArchivoDTO> errores = new ArrayList<>();
 

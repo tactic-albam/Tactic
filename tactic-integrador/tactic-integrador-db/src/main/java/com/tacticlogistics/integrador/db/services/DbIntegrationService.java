@@ -30,7 +30,10 @@ public class DbIntegrationService {
 	public void run() {
 		DbHandler handler = getRootResponsabilityChain();
 
-		val archivos = archivoRepository.findByEstado(EstadoArchivoType.VALIDADO);
+		val archivos =archivoRepository.findByEstado(EstadoArchivoType.VALIDADO);
+		// val archivos = new ArrayList<Archivo>();
+		// val a = archivoRepository.findOne(146277L);
+		// archivos.add(a);
 		for (Archivo archivo : archivos) {
 			val tipoArchivo = tipoArchivoRepository.findOne(archivo.getIdTipoArchivo());
 
@@ -40,7 +43,7 @@ public class DbIntegrationService {
 			handler.receiveRequest(request);
 		}
 	}
-	
+
 	private DbHandler getRootResponsabilityChain() {
 		if (rootChain == null) {
 			for (int i = 0; i < handlers.size(); i++) {

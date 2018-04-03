@@ -2,7 +2,7 @@ package com.tacticlogistics.integrador.files.clientes.gws.conciliaciones;
 
 import java.time.LocalDateTime;
 
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.Validate;
 
 import com.tacticlogistics.integrador.dto.ArchivoDTO;
 import com.tacticlogistics.integrador.dto.RegistroDTO;
@@ -26,11 +26,11 @@ public class MapEntidadSaldoClienteDecorator extends MapEntidadDecorator<SaldoCl
 	@Override
 	protected SaldoCliente map(ArchivoDTO<SaldoCliente> archivoDTO, RegistroDTO<SaldoCliente> registro) {
 		val tipoArchivo = archivoDTO.getTipoArchivo();
-		Assert.notNull(tipoArchivo);
+		Validate.notNull(tipoArchivo);
 		val archivo = archivoDTO.getArchivo();
-		Assert.notNull(archivo);
+		Validate.notNull(archivo);
 		val datos = registro.getDatos();
-		Assert.notEmpty(datos);
+		Validate.notEmpty(datos);
 
 		LocalDateTime fecha = getLocalDateTime (tipoArchivo, datos, SaldoCliente.FECHA);
 		Integer cantidad = getInteger(tipoArchivo, datos, SaldoCliente.CANTIDAD);

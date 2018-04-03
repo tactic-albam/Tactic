@@ -1,6 +1,6 @@
 package com.tacticlogistics.integrador.files.handlers.decorators;
 
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.Validate;
 
 import com.tacticlogistics.integrador.dto.ArchivoDTO;
 
@@ -18,8 +18,8 @@ public class Decorator<T> implements Filter<T> {
 
 	@Override
 	public ArchivoDTO<T> transformar(ArchivoDTO<T> archivoDTO) {
-		Assert.notNull(archivoDTO.getPathArchivo());
-		Assert.notNull(archivoDTO.getTipoArchivo());
+		Validate.notNull(archivoDTO.getPathArchivo());
+		Validate.notNull(archivoDTO.getTipoArchivo());
 
 		if (inner != null) {
 			return inner.transformar(archivoDTO);

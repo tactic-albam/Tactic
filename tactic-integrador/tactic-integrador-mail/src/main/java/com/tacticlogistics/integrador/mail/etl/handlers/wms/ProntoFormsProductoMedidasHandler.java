@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 
 import com.tacticlogistics.ClienteCodigoType;
 import com.tacticlogistics.integrador.mail.etl.handlers.MailMessageHandler;
@@ -34,7 +34,7 @@ public class ProntoFormsProductoMedidasHandler extends MailMessageHandler {
 	@Value("${etl.directorio.entradas}")
 	private String subDirectorioDeEntradas;
 
-	private final String directorio = "WMS\\HUELLAS";
+	private final Path directorio = Paths.get("WMS\\HUELLAS");
 
 	private static final String TAB = "\t";
 
@@ -58,9 +58,9 @@ public class ProntoFormsProductoMedidasHandler extends MailMessageHandler {
 
 	@Override
 	protected void handleRequest(MailMessage request) {
-		Assert.notEmpty(request.getContents());
+		Validate.notEmpty(request.getContents());
 		String body = request.getContents().get(0).getBody();
-		Assert.hasLength(body);
+		Validate.notEmpty(body);
 		body = clean(body);
 		body = unpivot(body);
 		write(request, body);

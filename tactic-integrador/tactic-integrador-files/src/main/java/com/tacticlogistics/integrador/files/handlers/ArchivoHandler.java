@@ -14,21 +14,21 @@ import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 import com.tacticlogistics.core.patterns.AbstractHandler;
+import com.tacticlogistics.integrador.dto.ArchivoDTO;
+import com.tacticlogistics.integrador.dto.ArchivoRequestDTO;
 import com.tacticlogistics.integrador.files.handlers.decorators.Decorator;
 import com.tacticlogistics.integrador.files.handlers.decorators.ETLRuntimeException;
 import com.tacticlogistics.integrador.files.handlers.readers.Reader;
-import com.tacticlogistics.integrador.dto.ArchivoDTO;
-import com.tacticlogistics.integrador.dto.ArchivoRequestDTO;
-import com.tacticlogistics.integrador.services.ArchivosService;
 import com.tacticlogistics.integrador.model.etl.tipoarchivo.TipoArchivo;
 import com.tacticlogistics.integrador.model.etl.tipoarchivo.TipoArchivoRepository;
+import com.tacticlogistics.integrador.services.ArchivosService;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -143,11 +143,11 @@ public abstract class ArchivoHandler<T, ID extends Serializable> extends Abstrac
 	// ----------------------------------------------------------------------------------------------------------------
 	@Override
 	protected void handleRequest(ArchivoRequestDTO request) {
-		Assert.notNull(request);
+		Validate.notNull(request);
 		Path pathArchivo = request.getPathArchivo();
-		Assert.notNull(pathArchivo);
+		Validate.notNull(pathArchivo);
 		TipoArchivo tipoArchivo = tipoArchivoRepository.findOneByCodigo(getCodigoTipoArchivo());
-		Assert.notNull(tipoArchivo);
+		Validate.notNull(tipoArchivo);
 
 		log.debug("Procesando el archivo {} de tipo {}", pathArchivo, tipoArchivo.getCodigo());
 

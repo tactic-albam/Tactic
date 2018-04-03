@@ -2,7 +2,7 @@ package com.tacticlogistics.integrador.files.clientes.tactic.tms.visitas.rutacon
 
 import java.util.Optional;
 
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.Validate;
 
 import com.tacticlogistics.integrador.dto.ArchivoDTO;
 import com.tacticlogistics.integrador.dto.RegistroDTO;
@@ -26,8 +26,8 @@ public class ReemplazarValoresVisitaRutaControlDecorator extends Decorator<Visit
 	@Override
 	public ArchivoDTO<VisitaRutaControl> transformar(ArchivoDTO<VisitaRutaControl> archivoDTO) {
 		final val result = super.transformar(archivoDTO);
-		Assert.notNull(result.getTipoArchivo());
-		Assert.notEmpty(result.getRegistros());
+		Validate.notNull(result.getTipoArchivo());
+		Validate.notEmpty(result.getRegistros());
 
 		for (val registro : result.getRegistros()) {
 			reemplazarValoresNull(registro);
@@ -48,10 +48,10 @@ public class ReemplazarValoresVisitaRutaControlDecorator extends Decorator<Visit
 	}
 
 	protected void reducirNumeroDeCaracteres(ArchivoDTO<VisitaRutaControl> archivoDTO, String campoCodigo, RegistroDTO<VisitaRutaControl> registro) {
-		Assert.notNull(archivoDTO);
-		Assert.notNull(archivoDTO.getTipoArchivo());
+		Validate.notNull(archivoDTO);
+		Validate.notNull(archivoDTO.getTipoArchivo());
 		Optional<Campo> optional = archivoDTO.getTipoArchivo().getCampoPorCodigo(campoCodigo);
-		Assert.isTrue(optional.isPresent());
+		Validate.isTrue(optional.isPresent());
 		Campo campo = optional.get();
 
 		// @formatter:off

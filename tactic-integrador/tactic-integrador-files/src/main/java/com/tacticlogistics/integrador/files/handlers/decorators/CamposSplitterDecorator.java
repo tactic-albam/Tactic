@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.Validate;
 
 import com.tacticlogistics.integrador.dto.ArchivoDTO;
 import com.tacticlogistics.integrador.dto.RegistroDTO;
@@ -27,7 +27,7 @@ public class CamposSplitterDecorator<T> extends Decorator<T> {
 	@Override
 	public ArchivoDTO<T> transformar(ArchivoDTO<T> archivoDTO) {
 		final val result = super.transformar(archivoDTO);
-		Assert.notEmpty(result.getRegistros());
+		Validate.notEmpty(result.getRegistros());
 
 		val registros = result.getRegistros();
 		val tipoArchivo = result.getTipoArchivo();

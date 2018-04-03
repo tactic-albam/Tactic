@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.Validate;
 import org.springframework.util.StringUtils;
 
 import com.tacticlogistics.integrador.dto.ArchivoDTO;
@@ -26,7 +26,7 @@ public class CheckRegistrosDuplicadosDecorator<T> extends Decorator<T> {
 	@Override
 	public ArchivoDTO<T> transformar(ArchivoDTO<T> archivoDTO) {
 		final val result = super.transformar(archivoDTO);
-		Assert.notEmpty(result.getRegistros());
+		Validate.notEmpty(result.getRegistros());
 
 		val registros = result.getRegistros();
 		List<String> llaves = result.getTipoArchivo().getLlaves();

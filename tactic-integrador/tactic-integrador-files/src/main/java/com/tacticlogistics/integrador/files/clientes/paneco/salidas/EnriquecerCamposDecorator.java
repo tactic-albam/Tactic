@@ -1,6 +1,6 @@
 package com.tacticlogistics.integrador.files.clientes.paneco.salidas;
 
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.Validate;
 
 import com.tacticlogistics.ClienteCodigoType;
 import com.tacticlogistics.integrador.dto.ArchivoDTO;
@@ -26,7 +26,7 @@ public class EnriquecerCamposDecorator extends Decorator<Salida> {
 	@Override
 	public ArchivoDTO<Salida> transformar(ArchivoDTO<Salida> archivoDTO) {
 		final val result = super.transformar(archivoDTO);
-		Assert.notEmpty(result.getRegistros());
+		Validate.notEmpty(result.getRegistros());
 
 		val registros = result.getRegistros();
 		val clienteCodigo = ClienteCodigoType.PANECO.toString();

@@ -3,7 +3,7 @@ package com.tacticlogistics.integrador.files.clientes.tactic.tms.rutas.manuales;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.Validate;
 
 import com.tacticlogistics.integrador.dto.ArchivoDTO;
 import com.tacticlogistics.integrador.dto.RegistroDTO;
@@ -28,11 +28,11 @@ public class MapEntidadRutaManualDecorator extends MapEntidadDecorator<RutaManua
 	@Override
 	protected RutaManual map(ArchivoDTO<RutaManual> archivoDTO, RegistroDTO<RutaManual> registro) {
 		val tipoArchivo = archivoDTO.getTipoArchivo();
-		Assert.notNull(tipoArchivo);
+		Validate.notNull(tipoArchivo);
 		val archivo = archivoDTO.getArchivo();
-		Assert.notNull(archivo);
+		Validate.notNull(archivo);
 		val datos = registro.getDatos();
-		Assert.notEmpty(datos);
+		Validate.notEmpty(datos);
 
 		LocalDateTime fechaHora = getLocalDateTime(tipoArchivo, datos, RutaManual.FECHA_HORA_ESTIMADA_ENTREGA);
 		BigDecimal cx = getBigDecimal(tipoArchivo, datos, RutaManual.CX);

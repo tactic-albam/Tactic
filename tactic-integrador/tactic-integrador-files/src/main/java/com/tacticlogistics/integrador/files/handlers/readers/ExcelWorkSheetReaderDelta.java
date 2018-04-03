@@ -128,7 +128,6 @@ public class ExcelWorkSheetReaderDelta implements Reader {
 		return result;
 	}
 
-	@SuppressWarnings("deprecation")
 	private String getCellText(Cell cell) {
 		String text = "";
 

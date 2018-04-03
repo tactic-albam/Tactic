@@ -2,7 +2,7 @@ package com.tacticlogistics.integrador.files.clientes.tactic.tms.rutas.toursolve
 
 import java.util.stream.Collectors;
 
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.Validate;
 
 import com.tacticlogistics.integrador.dto.ArchivoDTO;
 import com.tacticlogistics.integrador.files.handlers.decorators.Decorator;
@@ -24,7 +24,7 @@ public class FiltrarRutasTourSolverDecorator extends Decorator<RutaTourSolver> {
 	@Override
 	public ArchivoDTO<RutaTourSolver> transformar(ArchivoDTO<RutaTourSolver> archivoDTO) {
 		final val result = super.transformar(archivoDTO);
-		Assert.notEmpty(result.getRegistros());
+		Validate.notEmpty(result.getRegistros());
 
 		// @formatter:off
 		val registros = result

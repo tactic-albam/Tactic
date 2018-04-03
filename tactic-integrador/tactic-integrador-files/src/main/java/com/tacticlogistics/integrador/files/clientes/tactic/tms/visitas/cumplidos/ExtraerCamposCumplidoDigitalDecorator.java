@@ -4,7 +4,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.apache.commons.io.FilenameUtils;
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.Validate;
 
 import com.tacticlogistics.integrador.dto.ArchivoDTO;
 import com.tacticlogistics.integrador.files.handlers.decorators.Decorator;
@@ -26,7 +26,7 @@ public class ExtraerCamposCumplidoDigitalDecorator extends Decorator<CumplidoDig
 	@Override
 	public ArchivoDTO<CumplidoDigital> transformar(ArchivoDTO<CumplidoDigital> archivoDTO) {
 		final val result = super.transformar(archivoDTO);
-		Assert.notEmpty(result.getRegistros());
+		Validate.notEmpty(result.getRegistros());
 
 		// @formatter:off
 		val registros = result.getRegistros();

@@ -1,6 +1,6 @@
 package com.tacticlogistics.integrador.files.handlers.decorators;
 
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.Validate;
 
 import com.tacticlogistics.integrador.dto.ArchivoDTO;
 
@@ -19,7 +19,7 @@ public class MayusculasDecorator<T> extends Decorator<T> {
 	@Override
 	public ArchivoDTO<T> transformar(ArchivoDTO<T> archivoDTO) {
 		final val result = super.transformar(archivoDTO);
-		Assert.notNull(result.getDatos());
+		Validate.notNull(result.getDatos());
 		
 		val datos = result.getDatos().toUpperCase();
 		

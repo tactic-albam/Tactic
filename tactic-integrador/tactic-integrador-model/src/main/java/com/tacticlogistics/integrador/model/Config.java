@@ -8,6 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -32,10 +33,17 @@ public class Config {
         		.persistenceUnit("default")
         		.build();
     }
+	
 	@Primary
     @Bean
     @ConfigurationProperties(prefix="spring.jpa")
     public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
+	
+	@Primary
+	@Bean
+	public NamedParameterJdbcTemplate jdbcTemplate(DataSource dataSource) {
+		return new NamedParameterJdbcTemplate(dataSource);
+	}
 }

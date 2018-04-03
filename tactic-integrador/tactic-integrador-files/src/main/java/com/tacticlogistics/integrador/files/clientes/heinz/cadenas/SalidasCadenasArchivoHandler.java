@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.tacticlogistics.ClienteCodigoType;
@@ -23,7 +24,7 @@ import com.tacticlogistics.integrador.model.oms.Salida;
 import com.tacticlogistics.integrador.model.oms.SalidaRepository;
 
 @Component
-public abstract class SalidasCadenasArchivoHandler extends ArchivoPlanoHandler<Salida,Long> {
+public class SalidasCadenasArchivoHandler extends ArchivoPlanoHandler<Salida,Long> {
 	private static final String CODIGO_TIPO_ARCHIVO = "HEINZ_SALIDAS_CADENAS";
 
 	private static final String SUBDIRECTORIO_RELATIVO = "ORDENES\\SALIDAS\\CADENAS";
@@ -31,6 +32,9 @@ public abstract class SalidasCadenasArchivoHandler extends ArchivoPlanoHandler<S
 	@Autowired
 	private SalidaRepository repository;
 
+	@Autowired
+	private NamedParameterJdbcTemplate jdbcTemplate;
+	
 	// ----------------------------------------------------------------------------------------------------------------
 	//
 	// ----------------------------------------------------------------------------------------------------------------
@@ -67,16 +71,17 @@ public abstract class SalidasCadenasArchivoHandler extends ArchivoPlanoHandler<S
 		// @formatter:off
 		return new MapEntidadSalidaDecorator(
 				new CheckRegistrosDuplicadosDecorator<Salida>(
-					new CheckRestriccionesDeCamposDecorator<Salida>(		
-						new IncluirCamposDecorator<Salida>(
-							new CamposSplitterDecorator<Salida>(
-								new CheckNumeroDeColumnasDecorator<Salida>(
-									new LimpiarFuncionTDecorator<Salida>(
-										new CheckArchivoVacioDecorator<Salida>(
-											new LineasSplitterDecorator<Salida>(
-												new NormalizarSeparadoresDeRegistroDecorator<Salida>(
-													new MayusculasDecorator<Salida>(
-		)))))))))));
+					new CheckRestriccionesDeCamposDecorator<Salida>(
+						new EnriquecerCamposDecorator(jdbcTemplate,
+							new IncluirCamposDecorator<Salida>(
+								new CamposSplitterDecorator<Salida>(
+									new CheckNumeroDeColumnasDecorator<Salida>(
+										new LimpiarFuncionTDecorator<Salida>(
+											new CheckArchivoVacioDecorator<Salida>(
+												new LineasSplitterDecorator<Salida>(
+													new NormalizarSeparadoresDeRegistroDecorator<Salida>(
+														new MayusculasDecorator<Salida>(
+		))))))))))));
 		// @formatter:on
 	}
 }

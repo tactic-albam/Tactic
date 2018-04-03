@@ -8,7 +8,7 @@ import java.time.LocalTime;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.Validate;
 
 import com.tacticlogistics.integrador.dto.ArchivoDTO;
 import com.tacticlogistics.integrador.dto.RegistroDTO;
@@ -30,7 +30,7 @@ public abstract class MapEntidadDecorator<T> extends Decorator<T> {
 	public ArchivoDTO<T> transformar(ArchivoDTO<T> archivoDTO) {
 		final val result = super.transformar(archivoDTO);
 		val registros = result.getRegistros();
-		Assert.notEmpty(registros);
+		Validate.notEmpty(registros);
 
 		boolean error = false;
 		for (val registro : registros) {

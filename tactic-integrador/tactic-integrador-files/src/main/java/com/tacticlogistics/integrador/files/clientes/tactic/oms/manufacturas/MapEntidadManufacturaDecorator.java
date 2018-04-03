@@ -3,7 +3,7 @@ package com.tacticlogistics.integrador.files.clientes.tactic.oms.manufacturas;
 import java.time.LocalDate;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.Validate;
 
 import com.tacticlogistics.integrador.dto.ArchivoDTO;
 import com.tacticlogistics.integrador.dto.RegistroDTO;
@@ -27,11 +27,11 @@ public class MapEntidadManufacturaDecorator extends MapEntidadDecorator<Manufact
 	@Override
 	protected Manufactura map(ArchivoDTO<Manufactura> archivoDTO, RegistroDTO<Manufactura> registro) {
 		val tipoArchivo = archivoDTO.getTipoArchivo();
-		Assert.notNull(tipoArchivo);
+		Validate.notNull(tipoArchivo);
 		val archivo = archivoDTO.getArchivo();
-		Assert.notNull(archivo);
+		Validate.notNull(archivo);
 		val datos = registro.getDatos();
-		Assert.notEmpty(datos);
+		Validate.notEmpty(datos);
 
 		LocalDate femi = getLocalDate(tipoArchivo, datos, Manufactura.FEMI);
 		LocalDate fema = getLocalDate(tipoArchivo, datos, Manufactura.FEMA);

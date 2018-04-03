@@ -2,7 +2,7 @@ package com.tacticlogistics.integrador.files.clientes.heinz.cadenas;
 
 import java.util.regex.Pattern;
 
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.Validate;
 
 import com.tacticlogistics.integrador.dto.ArchivoDTO;
 import com.tacticlogistics.integrador.files.handlers.decorators.Decorator;
@@ -23,7 +23,7 @@ public class LimpiarFuncionTDecorator<T> extends Decorator<T> {
 	@Override
 	public ArchivoDTO<T> transformar(ArchivoDTO<T> archivoDTO) {
 		final val result = super.transformar(archivoDTO);
-		Assert.notEmpty(result.getRegistros());
+		Validate.notEmpty(result.getRegistros());
 		
 		Pattern pattern = Pattern.compile((".*=T\\(\\\".*\\\"\\).*"));
 		Pattern begin = Pattern.compile("=T\\(\\\"", Pattern.DOTALL);

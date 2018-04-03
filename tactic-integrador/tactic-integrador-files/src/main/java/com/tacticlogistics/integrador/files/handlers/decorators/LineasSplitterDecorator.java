@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.Validate;
 
 import com.tacticlogistics.integrador.dto.ArchivoDTO;
 import com.tacticlogistics.integrador.dto.RegistroDTO;
@@ -24,8 +24,8 @@ public class LineasSplitterDecorator<T> extends Decorator<T> {
 	@Override
 	public ArchivoDTO<T> transformar(ArchivoDTO<T> archivoDTO) {
 		final val result = super.transformar(archivoDTO);
-		Assert.notNull(result.getTipoArchivo());
-		Assert.notNull(result.getDatos());
+		Validate.notNull(result.getTipoArchivo());
+		Validate.notNull(result.getDatos());
 
 		String separadorRegistros = result.getTipoArchivo().getRegExpSeparadorRegistros();
 		String separadorCampos = result.getTipoArchivo().getRegExpSeparadorCampos();

@@ -1,6 +1,6 @@
 package com.tacticlogistics.integrador.files.clientes.tactic.tms.moviles;
 
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.Validate;
 
 import com.tacticlogistics.integrador.dto.ArchivoDTO;
 import com.tacticlogistics.integrador.dto.RegistroDTO;
@@ -24,11 +24,11 @@ public class MapEntidadMovilRutaControlDecorator extends MapEntidadDecorator<Mov
 	@Override
 	protected MovilRutaControl map(ArchivoDTO<MovilRutaControl> archivoDTO, RegistroDTO<MovilRutaControl> registro) {
 		val tipoArchivo = archivoDTO.getTipoArchivo();
-		Assert.notNull(tipoArchivo);
+		Validate.notNull(tipoArchivo);
 		val archivo = archivoDTO.getArchivo();
-		Assert.notNull(archivo);
+		Validate.notNull(archivo);
 		val datos = registro.getDatos();
-		Assert.notEmpty(datos);
+		Validate.notEmpty(datos);
 
 		// @formatter:off
 		val result = MovilRutaControl.builder()

@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.Validate;
 
 import com.tacticlogistics.integrador.dto.ArchivoDTO;
 import com.tacticlogistics.integrador.dto.RegistroDTO;
@@ -29,11 +29,11 @@ public class MapEntidadReciboDecorator extends MapEntidadDecorator<Recibo> {
 	@Override
 	protected Recibo map(ArchivoDTO<Recibo> archivoDTO, RegistroDTO<Recibo> registro) {
 		val tipoArchivo = archivoDTO.getTipoArchivo();
-		Assert.notNull(tipoArchivo);
+		Validate.notNull(tipoArchivo);
 		val archivo = archivoDTO.getArchivo();
-		Assert.notNull(archivo);
+		Validate.notNull(archivo);
 		val datos = registro.getDatos();
-		Assert.notEmpty(datos);
+		Validate.notEmpty(datos);
 
 
 		LocalDate femi = getLocalDate(tipoArchivo, datos, Recibo.FEMI);

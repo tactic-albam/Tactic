@@ -2,7 +2,7 @@ package com.tacticlogistics.integrador.files.clientes.tactic.wms.pf;
 
 import java.math.BigDecimal;
 
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.Validate;
 
 import com.tacticlogistics.integrador.dto.ArchivoDTO;
 import com.tacticlogistics.integrador.dto.RegistroDTO;
@@ -26,11 +26,11 @@ public class MapEntidadProntoFormProductoMedidaDecorator extends MapEntidadDecor
 	@Override
 	protected ProntoFormProductoMedida map(ArchivoDTO<ProntoFormProductoMedida> archivoDTO, RegistroDTO<ProntoFormProductoMedida> registro) {
 		val tipoArchivo = archivoDTO.getTipoArchivo();
-		Assert.notNull(tipoArchivo);
+		Validate.notNull(tipoArchivo);
 		val archivo = archivoDTO.getArchivo();
-		Assert.notNull(archivo);
+		Validate.notNull(archivo);
 		val datos = registro.getDatos();
-		Assert.notEmpty(datos);
+		Validate.notEmpty(datos);
 
 		Integer caseLevel = getInteger(tipoArchivo, datos, ProntoFormProductoMedida.CASE_LEVEL);
 		Integer factorConversion1 = getInteger(tipoArchivo, datos, ProntoFormProductoMedida.FACTOR_CONVERSION_1);

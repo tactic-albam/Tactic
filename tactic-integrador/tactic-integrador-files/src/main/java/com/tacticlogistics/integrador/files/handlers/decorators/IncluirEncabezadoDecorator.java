@@ -3,7 +3,7 @@ package com.tacticlogistics.integrador.files.handlers.decorators;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.Validate;
 import org.springframework.util.StringUtils;
 
 import com.tacticlogistics.integrador.dto.ArchivoDTO;
@@ -24,8 +24,8 @@ public class IncluirEncabezadoDecorator<T> extends Decorator<T> {
 	public ArchivoDTO<T> transformar(ArchivoDTO<T> archivoDTO) {
 		final val result = super.transformar(archivoDTO);
 		val tipoArchivo = result.getTipoArchivo();
-		Assert.notNull(tipoArchivo);
-		Assert.notNull(result.getDatos());
+		Validate.notNull(tipoArchivo);
+		Validate.notNull(result.getDatos());
 
 		List<String> campos = tipoArchivo
 				.getCamposNoIncluidos()

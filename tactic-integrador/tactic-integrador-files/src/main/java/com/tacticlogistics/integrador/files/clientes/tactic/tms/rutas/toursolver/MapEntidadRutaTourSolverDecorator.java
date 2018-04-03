@@ -3,7 +3,7 @@ package com.tacticlogistics.integrador.files.clientes.tactic.tms.rutas.toursolve
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.Validate;
 
 import com.tacticlogistics.integrador.dto.ArchivoDTO;
 import com.tacticlogistics.integrador.dto.RegistroDTO;
@@ -27,11 +27,11 @@ public class MapEntidadRutaTourSolverDecorator extends MapEntidadDecorator<RutaT
 	@Override
 	protected RutaTourSolver map(ArchivoDTO<RutaTourSolver> archivoDTO, RegistroDTO<RutaTourSolver> registro) {
 		val tipoArchivo = archivoDTO.getTipoArchivo();
-		Assert.notNull(tipoArchivo);
+		Validate.notNull(tipoArchivo);
 		val archivo = archivoDTO.getArchivo();
-		Assert.notNull(archivo);
+		Validate.notNull(archivo);
 		val datos = registro.getDatos();
-		Assert.notEmpty(datos);
+		Validate.notEmpty(datos);
 
 		long idOrden = getInteger(tipoArchivo, datos, RutaTourSolver.ID_ORDEN);
 		LocalDate fecha = getLocalDate(tipoArchivo, datos, RutaTourSolver.FECHA_ESTIMADA_ENTREGA);

@@ -1,8 +1,8 @@
 package com.tacticlogistics.integrador.files.handlers.decorators;
 
+import org.apache.commons.lang3.Validate;
 import java.util.List;
 
-import org.springframework.util.Assert;
 
 import com.tacticlogistics.integrador.dto.ArchivoDTO;
 import com.tacticlogistics.integrador.dto.RegistroDTO;
@@ -22,7 +22,7 @@ public class CheckNumeroDeColumnasDecorator<T> extends Decorator<T> {
 	@Override
 	public ArchivoDTO<T> transformar(ArchivoDTO<T> archivoDTO) {
 		final val result = super.transformar(archivoDTO);
-		Assert.notEmpty(result.getRegistros());
+		Validate.notEmpty(result.getRegistros());
 
 		val registros = result.getRegistros();
 		String separador = result.getTipoArchivo().getRegExpSeparadorCampos();

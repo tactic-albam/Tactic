@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.Validate;
 
 import com.tacticlogistics.integrador.dto.ArchivoDTO;
 import com.tacticlogistics.integrador.files.handlers.decorators.Decorator;
@@ -26,7 +26,7 @@ public class EnriquecerCamposDecorator extends Decorator<Salida> {
 	@Override
 	public ArchivoDTO<Salida> transformar(ArchivoDTO<Salida> archivoDTO) {
 		final val result = super.transformar(archivoDTO);
-		Assert.notEmpty(result.getRegistros());
+		Validate.notEmpty(result.getRegistros());
 
 		val registros = result.getRegistros();
 		Map<String, Boolean> crossdock = new HashMap<>();

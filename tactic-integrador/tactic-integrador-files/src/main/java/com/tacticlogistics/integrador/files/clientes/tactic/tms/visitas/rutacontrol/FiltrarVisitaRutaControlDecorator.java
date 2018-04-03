@@ -1,6 +1,6 @@
 package com.tacticlogistics.integrador.files.clientes.tactic.tms.visitas.rutacontrol;
 
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.Validate;
 
 import com.tacticlogistics.integrador.dto.ArchivoDTO;
 import com.tacticlogistics.integrador.files.handlers.decorators.Decorator;
@@ -22,8 +22,8 @@ public class FiltrarVisitaRutaControlDecorator extends Decorator<VisitaRutaContr
 	@Override
 	public ArchivoDTO<VisitaRutaControl> transformar(ArchivoDTO<VisitaRutaControl> archivoDTO) {
 		final val result = super.transformar(archivoDTO);
-		Assert.notNull(result.getTipoArchivo());
-		Assert.notNull(result.getDatos());
+		Validate.notNull(result.getTipoArchivo());
+		Validate.notNull(result.getDatos());
 
 		String separador = result.getTipoArchivo().getRegExpSeparadorRegistros();
 		String[] lineas = result.getDatos().split(separador, -1);
