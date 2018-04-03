@@ -34,7 +34,7 @@ public class ProntoFormsProductoMedidasHandler extends MailMessageHandler {
 	@Value("${etl.directorio.entradas}")
 	private String subDirectorioDeEntradas;
 
-	private final Path directorio = Paths.get("WMS\\HUELLAS");
+	private final Path directorio = Paths.get("WMS/HUELLAS");
 
 	private static final String TAB = "\t";
 
@@ -106,6 +106,7 @@ public class ProntoFormsProductoMedidasHandler extends MailMessageHandler {
 				continue;
 			}
 
+			System.out.println("this.getDirectorio():" + this.getDirectorio().toString());
 			// @formatter:off
 			Path path = root
 					.resolve(ClienteCodigoType.TACTIC.toString())
@@ -113,7 +114,9 @@ public class ProntoFormsProductoMedidasHandler extends MailMessageHandler {
 					.resolve(this.getDirectorio())
 					.resolve(filename);
 			// @formatter:on
+			System.out.println("path:" + path.toString());
 
+			
 			try (BufferedWriter bw = new BufferedWriter(new FileWriter(path.toString()))) {
 				bw.write(datos);
 			} catch (IOException e) {

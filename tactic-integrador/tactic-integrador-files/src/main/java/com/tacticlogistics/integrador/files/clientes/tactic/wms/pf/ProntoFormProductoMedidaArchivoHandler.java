@@ -22,7 +22,7 @@ import com.tacticlogistics.integrador.model.wms.pf.ProntoFormProductoMedidaRepos
 public class ProntoFormProductoMedidaArchivoHandler extends ArchivoPlanoHandler<ProntoFormProductoMedida,Long> {
 	public static final String CODIGO_TIPO_ARCHIVO = "WMS_PF_PRODUCTOS_MEDIDAS";
 
-	private static final String SUBDIRECTORIO_RELATIVO = "WMS\\HUELLAS";
+	private static final String SUBDIRECTORIO_RELATIVO = "WMS/HUELLAS";
 
 	@Autowired
 	private ProntoFormProductoMedidaRepository repository;

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.tacticlogistics.integrador.db.services.DbIntegrationService;
 import com.tacticlogistics.integrador.files.services.FilesIntegrationService;
 import com.tacticlogistics.integrador.mail.fetch.services.FetchMailService;
 
@@ -19,8 +20,8 @@ public class CronTask {
 	@Autowired
 	private FilesIntegrationService filesService;
 
-	//@Autowired
-	//private DbIntegrationService dbService;
+	@Autowired
+	private DbIntegrationService dbService;
 
 	@Scheduled(cron = "${tasks.cron}")
 	public void cron() {
@@ -30,7 +31,7 @@ public class CronTask {
 		
 		filesService.run();
 		
-		//dbService.run();
+		dbService.run();
 
 		log.debug("Fin cron");
 	}
