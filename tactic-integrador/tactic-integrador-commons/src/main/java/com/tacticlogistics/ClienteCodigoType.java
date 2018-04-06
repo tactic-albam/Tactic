@@ -6,5 +6,5 @@ public enum ClienteCodigoType {
 	HEINZ,
 	PANECO,
 	PERNOD,
-	TACTIC
+	EGAKAT
 }

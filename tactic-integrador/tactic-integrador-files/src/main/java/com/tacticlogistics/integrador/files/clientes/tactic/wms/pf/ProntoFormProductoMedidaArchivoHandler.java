@@ -22,7 +22,7 @@ import com.tacticlogistics.integrador.model.wms.pf.ProntoFormProductoMedidaRepos
 public class ProntoFormProductoMedidaArchivoHandler extends ArchivoPlanoHandler<ProntoFormProductoMedida,Long> {
 	public static final String CODIGO_TIPO_ARCHIVO = "WMS_PF_PRODUCTOS_MEDIDAS";
 
-	private static final String SUBDIRECTORIO_RELATIVO = "WMS/HUELLAS";
+	private static final String SUBDIRECTORIO_RELATIVO = "cedis/huellas";
 
 	@Autowired
 	private ProntoFormProductoMedidaRepository repository;
@@ -32,7 +32,7 @@ public class ProntoFormProductoMedidaArchivoHandler extends ArchivoPlanoHandler<
 	// ----------------------------------------------------------------------------------------------------------------
 	@Override
 	protected String getClienteCodigo() {
-		return ClienteCodigoType.TACTIC.toString();
+		return ClienteCodigoType.EGAKAT.toString();
 	}
 	
 	@Override
