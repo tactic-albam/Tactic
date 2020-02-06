@@ -71,7 +71,11 @@ public class ProntoFormsProductoMedidasHandler extends MailMessageHandler {
 		return body
 				.replaceAll("<p>", "")
 				.replaceAll("</p>", "")
-				.replaceAll("\\r\\n", "\n");
+				.replaceAll("\\r\\n", "\n")
+				.replaceAll("<html>", "")
+	    		.replaceAll("</html>", "")
+	    		.replaceAll("<body>", "")
+	    		.replaceAll("</body>", "");
 		// @formatter:on
 	}
 
